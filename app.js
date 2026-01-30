@@ -1,5 +1,229 @@
 // CashFlow App - Main JavaScript
 
+// ==================== TRANSLATIONS ====================
+const translations = {
+    en: {
+        // Onboarding
+        tagline: "Watch your money grow in real-time",
+        whats_salary: "What's your salary?",
+        annual: "Annual",
+        monthly: "Monthly",
+        next: "Next →",
+        cash_on_hand: "Current cash on hand?",
+        cash_hint: "Bank accounts, savings, etc.",
+        tax_info: "Tax Information",
+        tax_hint: "For accurate calculations",
+        filing_status: "Filing Status",
+        single: "Single",
+        married: "Married Filing Jointly",
+        head_household: "Head of Household",
+        state: "State",
+        no_state_tax: "No State Tax (TX, FL, etc.)",
+        low_tax: "Low (≈5% - AZ, CO, etc.)",
+        medium_tax: "Medium (≈7% - GA, NC, etc.)",
+        high_tax: "High (≈10% - CA, NJ, etc.)",
+        very_high_tax: "Very High (≈13% - CA top bracket)",
+        start_earning: "Start Earning! 🚀",
+
+        // Main App
+        current_balance: "Current Balance",
+        today: "Today",
+        taxes_ytd: "Taxes (YTD)",
+        net_worth: "Net Worth",
+        add_expense: "Add Expense",
+        add_income: "Add Income",
+
+        // Tabs
+        chart: "Chart",
+        history: "History",
+        budget: "Budget",
+        settings: "Settings",
+
+        // Chart
+        this_week: "This Week",
+        this_month: "This Month",
+        this_year: "This Year",
+        income: "Income",
+        expenses: "Expenses",
+        taxes: "Taxes",
+
+        // Transactions
+        no_transactions: "No transactions yet",
+
+        // Budget
+        smart_budget: "Smart Budget Suggestions",
+        based_on_income: "Based on your income of",
+        per_month: "/month",
+        daily_budget: "Daily Budget",
+        weekly_budget: "Weekly Budget",
+        monthly_budget: "Monthly Budget",
+        spending_limit: "Spending Limit",
+        savings_target: "Savings Target",
+        emergency_fund: "Emergency Fund Goal",
+        rule_503020: "50/30/20 Rule",
+        needs: "Needs (50%)",
+        wants: "Wants (30%)",
+        savings_20: "Savings (20%)",
+        month_progress: "This Month's Progress",
+        spending: "Spending",
+        savings: "Savings",
+
+        // Settings
+        annual_salary: "Annual Salary",
+        state_tax_rate: "State Tax Rate",
+        no_state_tax_short: "No State Tax",
+        low_tax_short: "Low (≈5%)",
+        medium_tax_short: "Medium (≈7%)",
+        high_tax_short: "High (≈10%)",
+        very_high_tax_short: "Very High (≈13%)",
+        savings_goal: "Savings Goal (%)",
+        language: "Language",
+        save_settings: "Save Settings",
+        reset_data: "Reset All Data",
+
+        // Modal
+        note_optional: "Note (optional)",
+        cat_food: "🍔 Food & Dining",
+        cat_transport: "🚗 Transportation",
+        cat_shopping: "🛍️ Shopping",
+        cat_bills: "📄 Bills & Utilities",
+        cat_entertainment: "🎬 Entertainment",
+        cat_health: "💊 Health",
+        cat_other: "📦 Other",
+        cancel: "Cancel",
+        add: "Add",
+
+        // Categories (for transaction list)
+        food: "Food & Dining",
+        transport: "Transportation",
+        shopping: "Shopping",
+        bills: "Bills & Utilities",
+        entertainment: "Entertainment",
+        health: "Health",
+        other: "Other",
+
+        // Alerts
+        settings_saved: "Settings saved!",
+        reset_confirm: "Are you sure you want to reset all data? This cannot be undone.",
+
+        // Chart labels
+        week_label: "Week",
+        months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    },
+    ko: {
+        // Onboarding
+        tagline: "실시간으로 돈이 불어나는 것을 확인하세요",
+        whats_salary: "연봉이 얼마인가요?",
+        annual: "연봉",
+        monthly: "월급",
+        next: "다음 →",
+        cash_on_hand: "현재 보유 현금은?",
+        cash_hint: "은행 계좌, 저축 등",
+        tax_info: "세금 정보",
+        tax_hint: "정확한 계산을 위해",
+        filing_status: "신고 상태",
+        single: "미혼",
+        married: "기혼 (부부 공동)",
+        head_household: "세대주",
+        state: "주",
+        no_state_tax: "주세 없음 (TX, FL 등)",
+        low_tax: "낮음 (≈5% - AZ, CO 등)",
+        medium_tax: "중간 (≈7% - GA, NC 등)",
+        high_tax: "높음 (≈10% - CA, NJ 등)",
+        very_high_tax: "매우 높음 (≈13% - CA 최고세율)",
+        start_earning: "시작하기! 🚀",
+
+        // Main App
+        current_balance: "현재 잔액",
+        today: "오늘",
+        taxes_ytd: "세금 (연간)",
+        net_worth: "순자산",
+        add_expense: "지출 추가",
+        add_income: "수입 추가",
+
+        // Tabs
+        chart: "차트",
+        history: "내역",
+        budget: "예산",
+        settings: "설정",
+
+        // Chart
+        this_week: "이번 주",
+        this_month: "이번 달",
+        this_year: "올해",
+        income: "수입",
+        expenses: "지출",
+        taxes: "세금",
+
+        // Transactions
+        no_transactions: "거래 내역이 없습니다",
+
+        // Budget
+        smart_budget: "스마트 예산 제안",
+        based_on_income: "월 수입 기준:",
+        per_month: "",
+        daily_budget: "일일 예산",
+        weekly_budget: "주간 예산",
+        monthly_budget: "월간 예산",
+        spending_limit: "지출 한도",
+        savings_target: "저축 목표",
+        emergency_fund: "비상금 목표",
+        rule_503020: "50/30/20 규칙",
+        needs: "필수 (50%)",
+        wants: "원함 (30%)",
+        savings_20: "저축 (20%)",
+        month_progress: "이번 달 진행 상황",
+        spending: "지출",
+        savings: "저축",
+
+        // Settings
+        annual_salary: "연봉",
+        state_tax_rate: "주세율",
+        no_state_tax_short: "주세 없음",
+        low_tax_short: "낮음 (≈5%)",
+        medium_tax_short: "중간 (≈7%)",
+        high_tax_short: "높음 (≈10%)",
+        very_high_tax_short: "매우 높음 (≈13%)",
+        savings_goal: "저축 목표 (%)",
+        language: "언어",
+        save_settings: "설정 저장",
+        reset_data: "모든 데이터 초기화",
+
+        // Modal
+        note_optional: "메모 (선택사항)",
+        cat_food: "🍔 음식",
+        cat_transport: "🚗 교통",
+        cat_shopping: "🛍️ 쇼핑",
+        cat_bills: "📄 공과금",
+        cat_entertainment: "🎬 오락",
+        cat_health: "💊 건강",
+        cat_other: "📦 기타",
+        cancel: "취소",
+        add: "추가",
+
+        // Categories (for transaction list)
+        food: "음식",
+        transport: "교통",
+        shopping: "쇼핑",
+        bills: "공과금",
+        entertainment: "오락",
+        health: "건강",
+        other: "기타",
+
+        // Alerts
+        settings_saved: "설정이 저장되었습니다!",
+        reset_confirm: "모든 데이터를 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+
+        // Chart labels
+        week_label: "주",
+        months: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+        days: ["일", "월", "화", "수", "목", "금", "토"]
+    }
+};
+
+let currentLang = 'en';
+
 // ==================== DATA STORE ====================
 const defaultData = {
     salary: 0,
@@ -11,7 +235,8 @@ const defaultData = {
     transactions: [],
     startDate: null,
     totalEarned: 0,
-    onboarded: false
+    onboarded: false,
+    language: 'en'
 };
 
 let appData = { ...defaultData };
@@ -56,6 +281,59 @@ const MEDICARE_RATE = 0.0145;
 const MEDICARE_ADDITIONAL_RATE = 0.009;
 const MEDICARE_ADDITIONAL_THRESHOLD = 200000;
 
+// ==================== TRANSLATION FUNCTIONS ====================
+function t(key) {
+    return translations[currentLang][key] || translations['en'][key] || key;
+}
+
+function applyTranslations() {
+    // Update all elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+            el.textContent = translations[currentLang][key];
+        }
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[currentLang][key]) {
+            el.placeholder = translations[currentLang][key];
+        }
+    });
+
+    // Update language toggle button text
+    const langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+        langToggle.textContent = currentLang === 'en' ? '한국어' : 'English';
+    }
+
+    // Update language select in settings
+    const langSelect = document.getElementById('languageSelect');
+    if (langSelect) {
+        langSelect.value = currentLang;
+    }
+
+    // Update HTML lang attribute
+    document.documentElement.lang = currentLang;
+
+    // Refresh dynamic content
+    if (appData.onboarded) {
+        updateTransactionsList();
+        if (chart) {
+            updateChart();
+        }
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    appData.language = lang;
+    saveData();
+    applyTranslations();
+}
+
 // ==================== UTILITY FUNCTIONS ====================
 function formatCurrency(amount, showSign = false) {
     const formatted = new Intl.NumberFormat('en-US', {
@@ -88,6 +366,9 @@ function loadData() {
     const saved = localStorage.getItem('cashflow_data');
     if (saved) {
         appData = { ...defaultData, ...JSON.parse(saved) };
+        if (appData.language) {
+            currentLang = appData.language;
+        }
         return true;
     }
     return false;
@@ -320,8 +601,8 @@ function initTransactionModal() {
 
     document.getElementById('addExpenseBtn').addEventListener('click', () => {
         transactionType = 'expense';
-        modalTitle.textContent = 'Add Expense';
-        confirmBtn.textContent = 'Add Expense';
+        modalTitle.textContent = t('add_expense');
+        confirmBtn.textContent = t('add_expense');
         confirmBtn.classList.add('expense');
         modal.classList.remove('hidden');
         amountInput.value = '';
@@ -331,8 +612,8 @@ function initTransactionModal() {
 
     document.getElementById('addIncomeBtn').addEventListener('click', () => {
         transactionType = 'income';
-        modalTitle.textContent = 'Add Income';
-        confirmBtn.textContent = 'Add Income';
+        modalTitle.textContent = t('add_income');
+        confirmBtn.textContent = t('add_income');
         confirmBtn.classList.remove('expense');
         modal.classList.remove('hidden');
         amountInput.value = '';
@@ -378,16 +659,7 @@ function initTransactionModal() {
 }
 
 function getCategoryLabel(category) {
-    const labels = {
-        food: 'Food & Dining',
-        transport: 'Transportation',
-        shopping: 'Shopping',
-        bills: 'Bills & Utilities',
-        entertainment: 'Entertainment',
-        health: 'Health',
-        other: 'Other'
-    };
-    return labels[category] || 'Other';
+    return t(category) || category;
 }
 
 function getCategoryIcon(category) {
@@ -409,20 +681,20 @@ function updateTransactionsList() {
     const transactions = [...appData.transactions].reverse();
 
     if (transactions.length === 0) {
-        list.innerHTML = '<p class="empty-state">No transactions yet</p>';
+        list.innerHTML = `<p class="empty-state">${t('no_transactions')}</p>`;
         return;
     }
 
-    list.innerHTML = transactions.map(t => `
+    list.innerHTML = transactions.map(trans => `
         <div class="transaction-item">
             <div class="transaction-info">
-                <div class="transaction-icon">${t.type === 'income' ? '💰' : getCategoryIcon(t.category)}</div>
+                <div class="transaction-icon">${trans.type === 'income' ? '💰' : getCategoryIcon(trans.category)}</div>
                 <div class="transaction-details">
-                    <h4>${t.note}</h4>
-                    <span>${new Date(t.date).toLocaleDateString()}</span>
+                    <h4>${trans.note}</h4>
+                    <span>${new Date(trans.date).toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US')}</span>
                 </div>
             </div>
-            <span class="transaction-amount ${t.type}">${t.type === 'expense' ? '-' : '+'}${formatCurrency(t.amount)}</span>
+            <span class="transaction-amount ${trans.type}">${trans.type === 'expense' ? '-' : '+'}${formatCurrency(trans.amount)}</span>
         </div>
     `).join('');
 }
@@ -437,7 +709,7 @@ function initChart() {
             labels: [],
             datasets: [
                 {
-                    label: 'Income',
+                    label: t('income'),
                     data: [],
                     borderColor: '#00d4aa',
                     backgroundColor: 'rgba(0, 212, 170, 0.1)',
@@ -445,7 +717,7 @@ function initChart() {
                     tension: 0.4
                 },
                 {
-                    label: 'Expenses',
+                    label: t('expenses'),
                     data: [],
                     borderColor: '#ff6b6b',
                     backgroundColor: 'rgba(255, 107, 107, 0.1)',
@@ -453,7 +725,7 @@ function initChart() {
                     tension: 0.4
                 },
                 {
-                    label: 'Taxes',
+                    label: t('taxes'),
                     data: [],
                     borderColor: '#9775fa',
                     backgroundColor: 'rgba(151, 117, 250, 0.1)',
@@ -520,6 +792,10 @@ function updateChart() {
     chart.data.datasets[1].data = showExpenses ? expenseData : [];
     chart.data.datasets[2].data = showTaxes ? taxData : [];
 
+    chart.data.datasets[0].label = t('income');
+    chart.data.datasets[1].label = t('expenses');
+    chart.data.datasets[2].label = t('taxes');
+
     chart.data.datasets[0].hidden = !showIncome;
     chart.data.datasets[1].hidden = !showExpenses;
     chart.data.datasets[2].hidden = !showTaxes;
@@ -537,6 +813,9 @@ function generateChartData(period) {
     let expenseData = [];
     let taxData = [];
 
+    const days = translations[currentLang].days;
+    const months = translations[currentLang].months;
+
     if (period === 'day') {
         // Hourly for today
         for (let h = 0; h <= now.getHours(); h++) {
@@ -546,18 +825,17 @@ function generateChartData(period) {
 
             // Sum expenses for this hour
             const hourExpenses = appData.transactions
-                .filter(t => {
-                    const d = new Date(t.date);
-                    return t.type === 'expense' &&
+                .filter(trans => {
+                    const d = new Date(trans.date);
+                    return trans.type === 'expense' &&
                            d.toDateString() === now.toDateString() &&
                            d.getHours() <= h;
                 })
-                .reduce((sum, t) => sum + t.amount, 0);
+                .reduce((sum, trans) => sum + trans.amount, 0);
             expenseData.push(hourExpenses);
         }
     } else if (period === 'week') {
         // Daily for this week
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         const startOfWeek = new Date(now);
         startOfWeek.setDate(now.getDate() - now.getDay());
         startOfWeek.setHours(0, 0, 0, 0);
@@ -571,49 +849,47 @@ function generateChartData(period) {
             dayDate.setDate(startOfWeek.getDate() + d);
 
             const dayExpenses = appData.transactions
-                .filter(t => {
-                    const td = new Date(t.date);
-                    return t.type === 'expense' && td <= dayDate;
+                .filter(trans => {
+                    const td = new Date(trans.date);
+                    return trans.type === 'expense' && td <= dayDate;
                 })
-                .reduce((sum, t) => sum + t.amount, 0);
+                .reduce((sum, trans) => sum + trans.amount, 0);
             expenseData.push(dayExpenses);
         }
     } else if (period === 'month') {
         // Weekly for this month
         const weeksInMonth = Math.ceil(now.getDate() / 7);
         for (let w = 1; w <= weeksInMonth; w++) {
-            labels.push(`Week ${w}`);
+            labels.push(`${t('week_label')} ${w}`);
             incomeData.push(incomePerSecond * 86400 * 7 * w);
             taxData.push(taxPerSecond * 86400 * 7 * w);
 
             const weekEnd = new Date(now.getFullYear(), now.getMonth(), w * 7);
             const weekExpenses = appData.transactions
-                .filter(t => {
-                    const td = new Date(t.date);
-                    return t.type === 'expense' &&
+                .filter(trans => {
+                    const td = new Date(trans.date);
+                    return trans.type === 'expense' &&
                            td.getMonth() === now.getMonth() &&
                            td <= weekEnd;
                 })
-                .reduce((sum, t) => sum + t.amount, 0);
+                .reduce((sum, trans) => sum + trans.amount, 0);
             expenseData.push(weekExpenses);
         }
     } else if (period === 'year') {
         // Monthly for this year
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         for (let m = 0; m <= now.getMonth(); m++) {
             labels.push(months[m]);
             incomeData.push(incomePerSecond * 86400 * 30 * (m + 1));
             taxData.push(taxPerSecond * 86400 * 30 * (m + 1));
 
             const monthExpenses = appData.transactions
-                .filter(t => {
-                    const td = new Date(t.date);
-                    return t.type === 'expense' &&
+                .filter(trans => {
+                    const td = new Date(trans.date);
+                    return trans.type === 'expense' &&
                            td.getFullYear() === now.getFullYear() &&
                            td.getMonth() <= m;
                 })
-                .reduce((sum, t) => sum + t.amount, 0);
+                .reduce((sum, trans) => sum + trans.amount, 0);
             expenseData.push(monthExpenses);
         }
     }
@@ -667,13 +943,13 @@ function updateBudgetProgress() {
     // Calculate this month's actual spending
     const now = new Date();
     const thisMonthExpenses = appData.transactions
-        .filter(t => {
-            const d = new Date(t.date);
-            return t.type === 'expense' &&
+        .filter(trans => {
+            const d = new Date(trans.date);
+            return trans.type === 'expense' &&
                    d.getMonth() === now.getMonth() &&
                    d.getFullYear() === now.getFullYear();
         })
-        .reduce((sum, t) => sum + t.amount, 0);
+        .reduce((sum, trans) => sum + trans.amount, 0);
 
     // Calculate this month's earnings saved (simplified)
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -701,12 +977,18 @@ function updateSettingsForm() {
     document.getElementById('settingsStateTax').value = appData.stateTaxRate;
     document.getElementById('savingsGoal').value = appData.savingsGoal;
     document.getElementById('savingsGoalValue').textContent = appData.savingsGoal + '%';
+    document.getElementById('languageSelect').value = currentLang;
 }
 
 function initSettings() {
     const savingsGoalSlider = document.getElementById('savingsGoal');
     savingsGoalSlider.addEventListener('input', () => {
         document.getElementById('savingsGoalValue').textContent = savingsGoalSlider.value + '%';
+    });
+
+    // Language select change
+    document.getElementById('languageSelect').addEventListener('change', (e) => {
+        setLanguage(e.target.value);
     });
 
     document.getElementById('saveSettings').addEventListener('click', () => {
@@ -721,20 +1003,35 @@ function initSettings() {
         updateBudgetSuggestions();
         updateChart();
 
-        alert('Settings saved!');
+        alert(t('settings_saved'));
     });
 
     document.getElementById('resetData').addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+        if (confirm(t('reset_confirm'))) {
             localStorage.removeItem('cashflow_data');
             location.reload();
         }
     });
 }
 
+// ==================== LANGUAGE TOGGLE ====================
+function initLanguageToggle() {
+    const langToggle = document.getElementById('langToggle');
+    langToggle.addEventListener('click', () => {
+        const newLang = currentLang === 'en' ? 'ko' : 'en';
+        setLanguage(newLang);
+    });
+}
+
 // ==================== INITIALIZATION ====================
 function init() {
-    if (loadData() && appData.onboarded) {
+    loadData();
+    currentLang = appData.language || 'en';
+
+    initLanguageToggle();
+    applyTranslations();
+
+    if (appData.onboarded) {
         showMainApp();
     } else {
         initOnboarding();
