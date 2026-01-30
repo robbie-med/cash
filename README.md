@@ -2,6 +2,8 @@
 
 A mobile-first webapp that gamifies your income by showing your balance grow in real-time as you earn money just by existing.
 
+[[Screenshot 2026-01-30 053955.png]]
+
 ## Features
 
 ### Real-Time Salary Counter
