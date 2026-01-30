@@ -2,7 +2,8 @@
 
 A mobile-first webapp that gamifies your income by showing your balance grow in real-time as you earn money just by existing.
 
-[[Screenshot 2026-01-30 053955.png]]
+<img width="492" height="491" alt="Screenshot 2026-01-30 053955" src="https://github.com/user-attachments/assets/a7cdccbc-a234-4535-ac4b-8143cbcd2eae" />
+
 
 ## Features
 
