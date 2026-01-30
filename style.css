@@ -37,6 +37,28 @@ html, body {
     display: none !important;
 }
 
+/* Language Toggle Button */
+.lang-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1001;
+    padding: 8px 16px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.lang-toggle:hover {
+    border-color: var(--accent-green);
+    background: var(--bg-secondary);
+}
+
 /* Onboarding Styles */
 #onboarding {
     display: flex;

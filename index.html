@@ -12,56 +12,59 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Language Toggle (visible on all screens) -->
+    <button class="lang-toggle" id="langToggle">한국어</button>
+
     <!-- Onboarding Screen -->
     <div id="onboarding" class="screen">
         <div class="onboarding-container">
             <h1>💰 CashFlow</h1>
-            <p class="tagline">Watch your money grow in real-time</p>
+            <p class="tagline" data-i18n="tagline">Watch your money grow in real-time</p>
 
             <div class="onboarding-step" id="step1">
-                <h2>What's your salary?</h2>
+                <h2 data-i18n="whats_salary">What's your salary?</h2>
                 <div class="input-group">
                     <span class="currency">$</span>
                     <input type="number" id="salaryInput" placeholder="0" min="0">
                 </div>
                 <div class="toggle-group">
-                    <button class="toggle-btn active" data-period="annual">Annual</button>
-                    <button class="toggle-btn" data-period="monthly">Monthly</button>
+                    <button class="toggle-btn active" data-period="annual" data-i18n="annual">Annual</button>
+                    <button class="toggle-btn" data-period="monthly" data-i18n="monthly">Monthly</button>
                 </div>
-                <button class="next-btn" id="toStep2">Next →</button>
+                <button class="next-btn" id="toStep2" data-i18n="next">Next →</button>
             </div>
 
             <div class="onboarding-step hidden" id="step2">
-                <h2>Current cash on hand?</h2>
-                <p class="hint">Bank accounts, savings, etc.</p>
+                <h2 data-i18n="cash_on_hand">Current cash on hand?</h2>
+                <p class="hint" data-i18n="cash_hint">Bank accounts, savings, etc.</p>
                 <div class="input-group">
                     <span class="currency">$</span>
                     <input type="number" id="cashInput" placeholder="0" min="0">
                 </div>
-                <button class="next-btn" id="toStep3">Next →</button>
+                <button class="next-btn" id="toStep3" data-i18n="next">Next →</button>
             </div>
 
             <div class="onboarding-step hidden" id="step3">
-                <h2>Tax Information</h2>
-                <p class="hint">For accurate calculations</p>
+                <h2 data-i18n="tax_info">Tax Information</h2>
+                <p class="hint" data-i18n="tax_hint">For accurate calculations</p>
 
-                <label class="select-label">Filing Status</label>
+                <label class="select-label" data-i18n="filing_status">Filing Status</label>
                 <select id="filingStatus">
-                    <option value="single">Single</option>
-                    <option value="married">Married Filing Jointly</option>
-                    <option value="head">Head of Household</option>
+                    <option value="single" data-i18n="single">Single</option>
+                    <option value="married" data-i18n="married">Married Filing Jointly</option>
+                    <option value="head" data-i18n="head_household">Head of Household</option>
                 </select>
 
-                <label class="select-label">State</label>
+                <label class="select-label" data-i18n="state">State</label>
                 <select id="stateSelect">
-                    <option value="0">No State Tax (TX, FL, etc.)</option>
-                    <option value="0.0499">Low (≈5% - AZ, CO, etc.)</option>
-                    <option value="0.0725">Medium (≈7% - GA, NC, etc.)</option>
-                    <option value="0.0975">High (≈10% - CA, NJ, etc.)</option>
-                    <option value="0.1275">Very High (≈13% - CA top bracket)</option>
+                    <option value="0" data-i18n="no_state_tax">No State Tax (TX, FL, etc.)</option>
+                    <option value="0.0499" data-i18n="low_tax">Low (≈5% - AZ, CO, etc.)</option>
+                    <option value="0.0725" data-i18n="medium_tax">Medium (≈7% - GA, NC, etc.)</option>
+                    <option value="0.0975" data-i18n="high_tax">High (≈10% - CA, NJ, etc.)</option>
+                    <option value="0.1275" data-i18n="very_high_tax">Very High (≈13% - CA top bracket)</option>
                 </select>
 
-                <button class="start-btn" id="startApp">Start Earning! 🚀</button>
+                <button class="start-btn" id="startApp" data-i18n="start_earning">Start Earning! 🚀</button>
             </div>
         </div>
     </div>
@@ -70,7 +73,7 @@
     <div id="mainApp" class="screen hidden">
         <!-- Header with balance -->
         <header class="balance-header">
-            <p class="balance-label">Current Balance</p>
+            <p class="balance-label" data-i18n="current_balance">Current Balance</p>
             <h1 class="balance-amount" id="balanceDisplay">$0.00</h1>
             <div class="earning-rate">
                 <span class="pulse"></span>
@@ -81,15 +84,15 @@
         <!-- Stats Row -->
         <div class="stats-row">
             <div class="stat-card">
-                <span class="stat-label">Today</span>
+                <span class="stat-label" data-i18n="today">Today</span>
                 <span class="stat-value positive" id="todayEarned">+$0</span>
             </div>
             <div class="stat-card">
-                <span class="stat-label">Taxes (YTD)</span>
+                <span class="stat-label" data-i18n="taxes_ytd">Taxes (YTD)</span>
                 <span class="stat-value negative" id="taxesPaid">-$0</span>
             </div>
             <div class="stat-card">
-                <span class="stat-label">Net Worth</span>
+                <span class="stat-label" data-i18n="net_worth">Net Worth</span>
                 <span class="stat-value" id="netWorth">$0</span>
             </div>
         </div>
@@ -98,20 +101,20 @@
         <div class="quick-actions">
             <button class="action-btn expense-btn" id="addExpenseBtn">
                 <span class="icon">−</span>
-                Add Expense
+                <span data-i18n="add_expense">Add Expense</span>
             </button>
             <button class="action-btn income-btn" id="addIncomeBtn">
                 <span class="icon">+</span>
-                Add Income
+                <span data-i18n="add_income">Add Income</span>
             </button>
         </div>
 
         <!-- Navigation Tabs -->
         <nav class="tab-nav">
-            <button class="tab-btn active" data-tab="chart">📊 Chart</button>
-            <button class="tab-btn" data-tab="transactions">📝 History</button>
-            <button class="tab-btn" data-tab="budget">💡 Budget</button>
-            <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+            <button class="tab-btn active" data-tab="chart"><span>📊</span> <span data-i18n="chart">Chart</span></button>
+            <button class="tab-btn" data-tab="transactions"><span>📝</span> <span data-i18n="history">History</span></button>
+            <button class="tab-btn" data-tab="budget"><span>💡</span> <span data-i18n="budget">Budget</span></button>
+            <button class="tab-btn" data-tab="settings"><span>⚙️</span> <span data-i18n="settings">Settings</span></button>
         </nav>
 
         <!-- Tab Content -->
@@ -120,23 +123,23 @@
             <div class="tab-panel active" id="chartPanel">
                 <div class="chart-controls">
                     <select id="chartPeriod">
-                        <option value="day">Today</option>
-                        <option value="week" selected>This Week</option>
-                        <option value="month">This Month</option>
-                        <option value="year">This Year</option>
+                        <option value="day" data-i18n="today">Today</option>
+                        <option value="week" selected data-i18n="this_week">This Week</option>
+                        <option value="month" data-i18n="this_month">This Month</option>
+                        <option value="year" data-i18n="this_year">This Year</option>
                     </select>
                     <div class="chart-toggles">
                         <label class="toggle-label">
                             <input type="checkbox" id="showIncome" checked>
-                            <span class="toggle-dot income"></span> Income
+                            <span class="toggle-dot income"></span> <span data-i18n="income">Income</span>
                         </label>
                         <label class="toggle-label">
                             <input type="checkbox" id="showExpenses" checked>
-                            <span class="toggle-dot expenses"></span> Expenses
+                            <span class="toggle-dot expenses"></span> <span data-i18n="expenses">Expenses</span>
                         </label>
                         <label class="toggle-label">
                             <input type="checkbox" id="showTaxes" checked>
-                            <span class="toggle-dot taxes"></span> Taxes
+                            <span class="toggle-dot taxes"></span> <span data-i18n="taxes">Taxes</span>
                         </label>
                     </div>
                 </div>
@@ -148,30 +151,30 @@
             <!-- Transactions Tab -->
             <div class="tab-panel" id="transactionsPanel">
                 <div class="transactions-list" id="transactionsList">
-                    <p class="empty-state">No transactions yet</p>
+                    <p class="empty-state" data-i18n="no_transactions">No transactions yet</p>
                 </div>
             </div>
 
             <!-- Budget Tab -->
             <div class="tab-panel" id="budgetPanel">
                 <div class="budget-summary">
-                    <h3>💡 Smart Budget Suggestions</h3>
-                    <p class="budget-intro">Based on your income of <span id="budgetIncome">$0</span>/month</p>
+                    <h3>💡 <span data-i18n="smart_budget">Smart Budget Suggestions</span></h3>
+                    <p class="budget-intro"><span data-i18n="based_on_income">Based on your income of</span> <span id="budgetIncome">$0</span><span data-i18n="per_month">/month</span></p>
                 </div>
 
                 <div class="budget-cards">
                     <div class="budget-card">
                         <div class="budget-header">
                             <span class="budget-icon">📅</span>
-                            <h4>Daily Budget</h4>
+                            <h4 data-i18n="daily_budget">Daily Budget</h4>
                         </div>
                         <div class="budget-amounts">
                             <div class="budget-row">
-                                <span>Spending Limit</span>
+                                <span data-i18n="spending_limit">Spending Limit</span>
                                 <span class="amount" id="dailySpend">$0</span>
                             </div>
                             <div class="budget-row">
-                                <span>Savings Target</span>
+                                <span data-i18n="savings_target">Savings Target</span>
                                 <span class="amount positive" id="dailySave">$0</span>
                             </div>
                         </div>
@@ -180,15 +183,15 @@
                     <div class="budget-card">
                         <div class="budget-header">
                             <span class="budget-icon">📆</span>
-                            <h4>Weekly Budget</h4>
+                            <h4 data-i18n="weekly_budget">Weekly Budget</h4>
                         </div>
                         <div class="budget-amounts">
                             <div class="budget-row">
-                                <span>Spending Limit</span>
+                                <span data-i18n="spending_limit">Spending Limit</span>
                                 <span class="amount" id="weeklySpend">$0</span>
                             </div>
                             <div class="budget-row">
-                                <span>Savings Target</span>
+                                <span data-i18n="savings_target">Savings Target</span>
                                 <span class="amount positive" id="weeklySave">$0</span>
                             </div>
                         </div>
@@ -197,19 +200,19 @@
                     <div class="budget-card">
                         <div class="budget-header">
                             <span class="budget-icon">🗓️</span>
-                            <h4>Monthly Budget</h4>
+                            <h4 data-i18n="monthly_budget">Monthly Budget</h4>
                         </div>
                         <div class="budget-amounts">
                             <div class="budget-row">
-                                <span>Spending Limit</span>
+                                <span data-i18n="spending_limit">Spending Limit</span>
                                 <span class="amount" id="monthlySpend">$0</span>
                             </div>
                             <div class="budget-row">
-                                <span>Savings Target</span>
+                                <span data-i18n="savings_target">Savings Target</span>
                                 <span class="amount positive" id="monthlySave">$0</span>
                             </div>
                             <div class="budget-row">
-                                <span>Emergency Fund Goal</span>
+                                <span data-i18n="emergency_fund">Emergency Fund Goal</span>
                                 <span class="amount" id="emergencyFund">$0</span>
                             </div>
                         </div>
@@ -218,19 +221,19 @@
                     <div class="budget-card highlight">
                         <div class="budget-header">
                             <span class="budget-icon">🎯</span>
-                            <h4>50/30/20 Rule</h4>
+                            <h4 data-i18n="rule_503020">50/30/20 Rule</h4>
                         </div>
                         <div class="budget-amounts">
                             <div class="budget-row">
-                                <span>Needs (50%)</span>
+                                <span data-i18n="needs">Needs (50%)</span>
                                 <span class="amount" id="needsAmount">$0</span>
                             </div>
                             <div class="budget-row">
-                                <span>Wants (30%)</span>
+                                <span data-i18n="wants">Wants (30%)</span>
                                 <span class="amount" id="wantsAmount">$0</span>
                             </div>
                             <div class="budget-row">
-                                <span>Savings (20%)</span>
+                                <span data-i18n="savings_20">Savings (20%)</span>
                                 <span class="amount positive" id="savingsAmount">$0</span>
                             </div>
                         </div>
@@ -238,10 +241,10 @@
                 </div>
 
                 <div class="progress-section">
-                    <h4>This Month's Progress</h4>
+                    <h4 data-i18n="month_progress">This Month's Progress</h4>
                     <div class="progress-item">
                         <div class="progress-label">
-                            <span>Spending</span>
+                            <span data-i18n="spending">Spending</span>
                             <span id="spendProgress">$0 / $0</span>
                         </div>
                         <div class="progress-bar">
@@ -250,7 +253,7 @@
                     </div>
                     <div class="progress-item">
                         <div class="progress-label">
-                            <span>Savings</span>
+                            <span data-i18n="savings">Savings</span>
                             <span id="saveProgress">$0 / $0</span>
                         </div>
                         <div class="progress-bar">
@@ -264,37 +267,44 @@
             <div class="tab-panel" id="settingsPanel">
                 <div class="settings-list">
                     <div class="settings-item">
-                        <label>Annual Salary</label>
+                        <label data-i18n="annual_salary">Annual Salary</label>
                         <div class="input-group small">
                             <span class="currency">$</span>
                             <input type="number" id="settingsSalary" placeholder="0">
                         </div>
                     </div>
                     <div class="settings-item">
-                        <label>Filing Status</label>
+                        <label data-i18n="filing_status">Filing Status</label>
                         <select id="settingsFilingStatus">
-                            <option value="single">Single</option>
-                            <option value="married">Married Filing Jointly</option>
-                            <option value="head">Head of Household</option>
+                            <option value="single" data-i18n="single">Single</option>
+                            <option value="married" data-i18n="married">Married Filing Jointly</option>
+                            <option value="head" data-i18n="head_household">Head of Household</option>
                         </select>
                     </div>
                     <div class="settings-item">
-                        <label>State Tax Rate</label>
+                        <label data-i18n="state_tax_rate">State Tax Rate</label>
                         <select id="settingsStateTax">
-                            <option value="0">No State Tax</option>
-                            <option value="0.0499">Low (≈5%)</option>
-                            <option value="0.0725">Medium (≈7%)</option>
-                            <option value="0.0975">High (≈10%)</option>
-                            <option value="0.1275">Very High (≈13%)</option>
+                            <option value="0" data-i18n="no_state_tax_short">No State Tax</option>
+                            <option value="0.0499" data-i18n="low_tax_short">Low (≈5%)</option>
+                            <option value="0.0725" data-i18n="medium_tax_short">Medium (≈7%)</option>
+                            <option value="0.0975" data-i18n="high_tax_short">High (≈10%)</option>
+                            <option value="0.1275" data-i18n="very_high_tax_short">Very High (≈13%)</option>
                         </select>
                     </div>
                     <div class="settings-item">
-                        <label>Savings Goal (%)</label>
+                        <label data-i18n="savings_goal">Savings Goal (%)</label>
                         <input type="range" id="savingsGoal" min="5" max="50" value="20">
                         <span id="savingsGoalValue">20%</span>
                     </div>
-                    <button class="save-settings-btn" id="saveSettings">Save Settings</button>
-                    <button class="reset-btn" id="resetData">Reset All Data</button>
+                    <div class="settings-item">
+                        <label data-i18n="language">Language</label>
+                        <select id="languageSelect">
+                            <option value="en">English</option>
+                            <option value="ko">한국어</option>
+                        </select>
+                    </div>
+                    <button class="save-settings-btn" id="saveSettings" data-i18n="save_settings">Save Settings</button>
+                    <button class="reset-btn" id="resetData" data-i18n="reset_data">Reset All Data</button>
                 </div>
             </div>
         </div>
@@ -303,24 +313,24 @@
     <!-- Expense/Income Modal -->
     <div class="modal-overlay hidden" id="transactionModal">
         <div class="modal">
-            <h3 id="modalTitle">Add Expense</h3>
+            <h3 id="modalTitle" data-i18n="add_expense">Add Expense</h3>
             <div class="input-group">
                 <span class="currency">$</span>
                 <input type="number" id="transactionAmount" placeholder="0.00" min="0" step="0.01">
             </div>
-            <input type="text" id="transactionNote" placeholder="Note (optional)" class="note-input">
+            <input type="text" id="transactionNote" data-i18n-placeholder="note_optional" placeholder="Note (optional)" class="note-input">
             <select id="transactionCategory">
-                <option value="food">🍔 Food & Dining</option>
-                <option value="transport">🚗 Transportation</option>
-                <option value="shopping">🛍️ Shopping</option>
-                <option value="bills">📄 Bills & Utilities</option>
-                <option value="entertainment">🎬 Entertainment</option>
-                <option value="health">💊 Health</option>
-                <option value="other">📦 Other</option>
+                <option value="food" data-i18n="cat_food">🍔 Food & Dining</option>
+                <option value="transport" data-i18n="cat_transport">🚗 Transportation</option>
+                <option value="shopping" data-i18n="cat_shopping">🛍️ Shopping</option>
+                <option value="bills" data-i18n="cat_bills">📄 Bills & Utilities</option>
+                <option value="entertainment" data-i18n="cat_entertainment">🎬 Entertainment</option>
+                <option value="health" data-i18n="cat_health">💊 Health</option>
+                <option value="other" data-i18n="cat_other">📦 Other</option>
             </select>
             <div class="modal-buttons">
-                <button class="cancel-btn" id="cancelTransaction">Cancel</button>
-                <button class="confirm-btn" id="confirmTransaction">Add</button>
+                <button class="cancel-btn" id="cancelTransaction" data-i18n="cancel">Cancel</button>
+                <button class="confirm-btn" id="confirmTransaction" data-i18n="add">Add</button>
             </div>
         </div>
     </div>
