@@ -96,6 +96,45 @@ html, body {
     box-shadow: var(--shadow);
 }
 
+/* Welcome Screen */
+.welcome-features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.welcome-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.welcome-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.welcome-text {
+    flex: 1;
+}
+
+.welcome-text strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.welcome-text p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
 .onboarding-step h2 {
     font-size: 1.4rem;
     margin-bottom: 8px;
