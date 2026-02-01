@@ -76,21 +76,29 @@
                 <h2 data-i18n="tax_info">Tax Information</h2>
                 <p class="hint" data-i18n="tax_hint">For accurate calculations</p>
 
-                <label class="select-label" data-i18n="filing_status">Filing Status</label>
-                <select id="filingStatus">
-                    <option value="single" data-i18n="single">Single</option>
-                    <option value="married" data-i18n="married">Married Filing Jointly</option>
-                    <option value="head" data-i18n="head_household">Head of Household</option>
+                <label class="select-label" data-i18n="country">Country</label>
+                <select id="countrySelect">
+                    <option value="us" data-i18n="country_us">United States (USD)</option>
+                    <option value="kr" data-i18n="country_kr">South Korea (KRW)</option>
                 </select>
 
-                <label class="select-label" data-i18n="state">State</label>
-                <select id="stateSelect">
-                    <option value="0" data-i18n="no_state_tax">No State Tax (TX, FL, etc.)</option>
-                    <option value="0.0499" data-i18n="low_tax">Low (≈5% - AZ, CO, etc.)</option>
-                    <option value="0.0725" data-i18n="medium_tax">Medium (≈7% - GA, NC, etc.)</option>
-                    <option value="0.0975" data-i18n="high_tax">High (≈10% - CA, NJ, etc.)</option>
-                    <option value="0.1275" data-i18n="very_high_tax">Very High (≈13% - CA top bracket)</option>
-                </select>
+                <div id="usTaxFields">
+                    <label class="select-label" data-i18n="filing_status">Filing Status</label>
+                    <select id="filingStatus">
+                        <option value="single" data-i18n="single">Single</option>
+                        <option value="married" data-i18n="married">Married Filing Jointly</option>
+                        <option value="head" data-i18n="head_household">Head of Household</option>
+                    </select>
+
+                    <label class="select-label" data-i18n="state">State</label>
+                    <select id="stateSelect">
+                        <option value="0" data-i18n="no_state_tax">No State Tax (TX, FL, etc.)</option>
+                        <option value="0.0499" data-i18n="low_tax">Low (≈5% - AZ, CO, etc.)</option>
+                        <option value="0.0725" data-i18n="medium_tax">Medium (≈7% - GA, NC, etc.)</option>
+                        <option value="0.0975" data-i18n="high_tax">High (≈10% - CA, NJ, etc.)</option>
+                        <option value="0.1275" data-i18n="very_high_tax">Very High (≈13% - CA top bracket)</option>
+                    </select>
+                </div>
 
                 <button class="start-btn" id="startApp" data-i18n="start_earning">Start Earning! 🚀</button>
             </div>
@@ -295,29 +303,38 @@
             <div class="tab-panel" id="settingsPanel">
                 <div class="settings-list">
                     <div class="settings-item">
+                        <label data-i18n="country">Country</label>
+                        <select id="settingsCountry">
+                            <option value="us" data-i18n="country_us">United States (USD)</option>
+                            <option value="kr" data-i18n="country_kr">South Korea (KRW)</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
                         <label data-i18n="annual_salary">Annual Salary</label>
                         <div class="input-group small">
-                            <span class="currency">$</span>
+                            <span class="currency" id="settingsCurrencySymbol">$</span>
                             <input type="number" id="settingsSalary" placeholder="0">
                         </div>
                     </div>
-                    <div class="settings-item">
-                        <label data-i18n="filing_status">Filing Status</label>
-                        <select id="settingsFilingStatus">
-                            <option value="single" data-i18n="single">Single</option>
-                            <option value="married" data-i18n="married">Married Filing Jointly</option>
-                            <option value="head" data-i18n="head_household">Head of Household</option>
-                        </select>
-                    </div>
-                    <div class="settings-item">
-                        <label data-i18n="state_tax_rate">State Tax Rate</label>
-                        <select id="settingsStateTax">
-                            <option value="0" data-i18n="no_state_tax_short">No State Tax</option>
-                            <option value="0.0499" data-i18n="low_tax_short">Low (≈5%)</option>
-                            <option value="0.0725" data-i18n="medium_tax_short">Medium (≈7%)</option>
-                            <option value="0.0975" data-i18n="high_tax_short">High (≈10%)</option>
-                            <option value="0.1275" data-i18n="very_high_tax_short">Very High (≈13%)</option>
-                        </select>
+                    <div id="settingsUsTaxFields">
+                        <div class="settings-item">
+                            <label data-i18n="filing_status">Filing Status</label>
+                            <select id="settingsFilingStatus">
+                                <option value="single" data-i18n="single">Single</option>
+                                <option value="married" data-i18n="married">Married Filing Jointly</option>
+                                <option value="head" data-i18n="head_household">Head of Household</option>
+                            </select>
+                        </div>
+                        <div class="settings-item">
+                            <label data-i18n="state_tax_rate">State Tax Rate</label>
+                            <select id="settingsStateTax">
+                                <option value="0" data-i18n="no_state_tax_short">No State Tax</option>
+                                <option value="0.0499" data-i18n="low_tax_short">Low (≈5%)</option>
+                                <option value="0.0725" data-i18n="medium_tax_short">Medium (≈7%)</option>
+                                <option value="0.0975" data-i18n="high_tax_short">High (≈10%)</option>
+                                <option value="0.1275" data-i18n="very_high_tax_short">Very High (≈13%)</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="settings-item">
                         <label data-i18n="savings_goal">Savings Goal (%)</label>
