@@ -90,6 +90,12 @@ const translations = {
         save_settings: "Save Settings",
         reset_data: "Reset All Data",
 
+        // Country/Currency
+        country: "Country",
+        country_us: "United States (USD)",
+        country_kr: "South Korea (KRW)",
+        currency_label: "Currency",
+
         // Modal
         note_optional: "Note (optional)",
         cat_food: "🍔 Food & Dining",
@@ -208,6 +214,12 @@ const translations = {
         save_settings: "설정 저장",
         reset_data: "모든 데이터 초기화",
 
+        // Country/Currency
+        country: "국가",
+        country_us: "미국 (USD)",
+        country_kr: "대한민국 (KRW)",
+        currency_label: "통화",
+
         // Modal
         note_optional: "메모 (선택사항)",
         cat_food: "🍔 음식",
@@ -254,7 +266,9 @@ const defaultData = {
     startDate: null,
     totalEarned: 0,
     onboarded: false,
-    language: 'en'
+    language: 'en',
+    country: 'us',
+    currency: 'USD'
 };
 
 let appData = { ...defaultData };
@@ -298,6 +312,24 @@ const SOCIAL_SECURITY_CAP = 168600;
 const MEDICARE_RATE = 0.0145;
 const MEDICARE_ADDITIONAL_RATE = 0.009;
 const MEDICARE_ADDITIONAL_THRESHOLD = 200000;
+
+// Korean tax brackets (2024) - in KRW
+const koreanBrackets = [
+    { min: 0, max: 14000000, rate: 0.06 },
+    { min: 14000000, max: 50000000, rate: 0.15 },
+    { min: 50000000, max: 88000000, rate: 0.24 },
+    { min: 88000000, max: 150000000, rate: 0.35 },
+    { min: 150000000, max: 300000000, rate: 0.38 },
+    { min: 300000000, max: 500000000, rate: 0.40 },
+    { min: 500000000, max: 1000000000, rate: 0.42 },
+    { min: 1000000000, max: Infinity, rate: 0.45 }
+];
+
+// Korean social insurance rates
+const KOREAN_NATIONAL_PENSION = 0.045; // 4.5% employee share
+const KOREAN_HEALTH_INSURANCE = 0.03545; // 3.545% employee share
+const KOREAN_LONG_TERM_CARE = 0.004591; // 0.4591% of health insurance
+const KOREAN_EMPLOYMENT_INSURANCE = 0.009; // 0.9%
 
 // ==================== TRANSLATION FUNCTIONS ====================
 function t(key) {
@@ -354,11 +386,15 @@ function setLanguage(lang) {
 
 // ==================== UTILITY FUNCTIONS ====================
 function formatCurrency(amount, showSign = false) {
-    const formatted = new Intl.NumberFormat('en-US', {
+    const currency = appData.currency || 'USD';
+    const locale = currency === 'KRW' ? 'ko-KR' : 'en-US';
+    const decimals = currency === 'KRW' ? 0 : 2;
+
+    const formatted = new Intl.NumberFormat(locale, {
         style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        currency: currency,
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
     }).format(Math.abs(amount));
 
     if (showSign && amount > 0) return '+' + formatted;
@@ -367,11 +403,24 @@ function formatCurrency(amount, showSign = false) {
 }
 
 function formatCompact(amount) {
-    if (Math.abs(amount) >= 1000000) {
-        return '$' + (amount / 1000000).toFixed(1) + 'M';
-    }
-    if (Math.abs(amount) >= 1000) {
-        return '$' + (amount / 1000).toFixed(1) + 'K';
+    const currency = appData.currency || 'USD';
+    const symbol = currency === 'KRW' ? '₩' : '$';
+
+    if (currency === 'KRW') {
+        // Korean uses 억 (100 million) and 만 (10 thousand)
+        if (Math.abs(amount) >= 100000000) {
+            return symbol + (amount / 100000000).toFixed(1) + '억';
+        }
+        if (Math.abs(amount) >= 10000) {
+            return symbol + (amount / 10000).toFixed(0) + '만';
+        }
+    } else {
+        if (Math.abs(amount) >= 1000000) {
+            return symbol + (amount / 1000000).toFixed(1) + 'M';
+        }
+        if (Math.abs(amount) >= 1000) {
+            return symbol + (amount / 1000).toFixed(1) + 'K';
+        }
     }
     return formatCurrency(amount);
 }
@@ -422,7 +471,45 @@ function calculateFICA(annualIncome) {
     return ssTax + medicareTax;
 }
 
+function calculateKoreanIncomeTax(annualIncome) {
+    let tax = 0;
+    let remaining = annualIncome;
+
+    for (const bracket of koreanBrackets) {
+        if (remaining <= 0) break;
+        const taxableInBracket = Math.min(remaining, bracket.max - bracket.min);
+        tax += taxableInBracket * bracket.rate;
+        remaining -= taxableInBracket;
+    }
+
+    return tax;
+}
+
+function calculateKoreanSocialInsurance(annualIncome) {
+    const pension = annualIncome * KOREAN_NATIONAL_PENSION;
+    const health = annualIncome * KOREAN_HEALTH_INSURANCE;
+    const longTermCare = health * KOREAN_LONG_TERM_CARE;
+    const employment = annualIncome * KOREAN_EMPLOYMENT_INSURANCE;
+
+    return pension + health + longTermCare + employment;
+}
+
 function calculateTotalTax(annualIncome) {
+    if (appData.country === 'kr') {
+        const incomeTax = calculateKoreanIncomeTax(annualIncome);
+        const localTax = incomeTax * 0.1; // Local income tax is 10% of income tax
+        const socialInsurance = calculateKoreanSocialInsurance(annualIncome);
+
+        return {
+            federal: incomeTax,
+            fica: socialInsurance,
+            state: localTax,
+            total: incomeTax + localTax + socialInsurance,
+            effectiveRate: annualIncome > 0 ? (incomeTax + localTax + socialInsurance) / annualIncome : 0
+        };
+    }
+
+    // US taxes
     const federal = calculateFederalTax(annualIncome);
     const fica = calculateFICA(annualIncome);
     const state = annualIncome * appData.stateTaxRate;
@@ -432,7 +519,7 @@ function calculateTotalTax(annualIncome) {
         fica,
         state,
         total: federal + fica + state,
-        effectiveRate: (federal + fica + state) / annualIncome
+        effectiveRate: annualIncome > 0 ? (federal + fica + state) / annualIncome : 0
     };
 }
 
@@ -507,10 +594,35 @@ function initOnboarding() {
         step3.classList.remove('hidden');
     });
 
+    // Country selection in onboarding
+    const countrySelect = document.getElementById('countrySelect');
+    const usTaxFields = document.getElementById('usTaxFields');
+
+    countrySelect.addEventListener('change', () => {
+        const country = countrySelect.value;
+        if (country === 'kr') {
+            usTaxFields.classList.add('hidden');
+        } else {
+            usTaxFields.classList.remove('hidden');
+        }
+        // Update currency symbols
+        updateCurrencySymbols(country);
+    });
+
     // Start app
     document.getElementById('startApp').addEventListener('click', () => {
-        appData.filingStatus = document.getElementById('filingStatus').value;
-        appData.stateTaxRate = parseFloat(document.getElementById('stateSelect').value);
+        const country = document.getElementById('countrySelect').value;
+        appData.country = country;
+        appData.currency = country === 'kr' ? 'KRW' : 'USD';
+
+        if (country === 'us') {
+            appData.filingStatus = document.getElementById('filingStatus').value;
+            appData.stateTaxRate = parseFloat(document.getElementById('stateSelect').value);
+        } else {
+            appData.filingStatus = 'single';
+            appData.stateTaxRate = 0;
+        }
+
         appData.startDate = new Date().toISOString();
         appData.onboarded = true;
         saveData();
@@ -518,9 +630,17 @@ function initOnboarding() {
     });
 }
 
+function updateCurrencySymbols(country) {
+    const symbol = country === 'kr' ? '₩' : '$';
+    document.querySelectorAll('.currency').forEach(el => {
+        el.textContent = symbol;
+    });
+}
+
 function showMainApp() {
     document.getElementById('onboarding').classList.add('hidden');
     document.getElementById('mainApp').classList.remove('hidden');
+    updateCurrencySymbols(appData.country || 'us');
     initMainApp();
 }
 
@@ -998,12 +1118,25 @@ function updateBudgetProgress() {
 
 // ==================== SETTINGS ====================
 function updateSettingsForm() {
+    document.getElementById('settingsCountry').value = appData.country || 'us';
     document.getElementById('settingsSalary').value = getAnnualSalary();
     document.getElementById('settingsFilingStatus').value = appData.filingStatus;
     document.getElementById('settingsStateTax').value = appData.stateTaxRate;
     document.getElementById('savingsGoal').value = appData.savingsGoal;
     document.getElementById('savingsGoalValue').textContent = appData.savingsGoal + '%';
     document.getElementById('languageSelect').value = currentLang;
+
+    // Show/hide US tax fields based on country
+    const settingsUsTaxFields = document.getElementById('settingsUsTaxFields');
+    if (appData.country === 'kr') {
+        settingsUsTaxFields.classList.add('hidden');
+    } else {
+        settingsUsTaxFields.classList.remove('hidden');
+    }
+
+    // Update currency symbol
+    const symbol = appData.currency === 'KRW' ? '₩' : '$';
+    document.getElementById('settingsCurrencySymbol').textContent = symbol;
 }
 
 function initSettings() {
@@ -1012,22 +1145,47 @@ function initSettings() {
         document.getElementById('savingsGoalValue').textContent = savingsGoalSlider.value + '%';
     });
 
+    // Country select change in settings
+    document.getElementById('settingsCountry').addEventListener('change', (e) => {
+        const country = e.target.value;
+        const settingsUsTaxFields = document.getElementById('settingsUsTaxFields');
+        const symbol = country === 'kr' ? '₩' : '$';
+
+        if (country === 'kr') {
+            settingsUsTaxFields.classList.add('hidden');
+        } else {
+            settingsUsTaxFields.classList.remove('hidden');
+        }
+        document.getElementById('settingsCurrencySymbol').textContent = symbol;
+    });
+
     // Language select change
     document.getElementById('languageSelect').addEventListener('change', (e) => {
         setLanguage(e.target.value);
     });
 
     document.getElementById('saveSettings').addEventListener('click', () => {
+        const country = document.getElementById('settingsCountry').value;
+        appData.country = country;
+        appData.currency = country === 'kr' ? 'KRW' : 'USD';
         appData.salary = parseFloat(document.getElementById('settingsSalary').value) || appData.salary;
         appData.salaryPeriod = 'annual';
-        appData.filingStatus = document.getElementById('settingsFilingStatus').value;
-        appData.stateTaxRate = parseFloat(document.getElementById('settingsStateTax').value);
+
+        if (country === 'us') {
+            appData.filingStatus = document.getElementById('settingsFilingStatus').value;
+            appData.stateTaxRate = parseFloat(document.getElementById('settingsStateTax').value);
+        } else {
+            appData.filingStatus = 'single';
+            appData.stateTaxRate = 0;
+        }
+
         appData.savingsGoal = parseInt(document.getElementById('savingsGoal').value);
 
         saveData();
         startCounter();
         updateBudgetSuggestions();
         updateChart();
+        updateCurrencySymbols(country);
 
         alert(t('settings_saved'));
     });
