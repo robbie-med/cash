@@ -3,6 +3,15 @@
 // ==================== TRANSLATIONS ====================
 const translations = {
     en: {
+        // Welcome
+        welcome_privacy_title: "100% Private",
+        welcome_privacy_desc: "Your data never leaves your device. No trackers, no servers, no accounts.",
+        welcome_flow_title: "Constant Cashflow",
+        welcome_flow_desc: "Your salary flows in 24/7. Watch your balance tick up every second you exist.",
+        welcome_game_title: "Gamify Saving",
+        welcome_game_desc: "Track expenses, beat your budget, and watch your wealth grow in real-time.",
+        get_started: "Get Started →",
+
         // Onboarding
         tagline: "Watch your money grow in real-time",
         whats_salary: "What's your salary?",
@@ -112,6 +121,15 @@ const translations = {
         days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     },
     ko: {
+        // Welcome
+        welcome_privacy_title: "100% 비공개",
+        welcome_privacy_desc: "데이터가 기기를 떠나지 않습니다. 추적기 없음, 서버 없음, 계정 없음.",
+        welcome_flow_title: "끊임없는 현금 흐름",
+        welcome_flow_desc: "급여가 24시간 들어옵니다. 매 초마다 잔액이 올라가는 것을 확인하세요.",
+        welcome_game_title: "저축을 게임처럼",
+        welcome_game_desc: "지출을 추적하고, 예산을 이기고, 실시간으로 자산이 늘어나는 것을 확인하세요.",
+        get_started: "시작하기 →",
+
         // Onboarding
         tagline: "실시간으로 돈이 불어나는 것을 확인하세요",
         whats_salary: "연봉이 얼마인가요?",
@@ -445,12 +463,20 @@ function getTaxPerSecond() {
 
 // ==================== ONBOARDING ====================
 function initOnboarding() {
+    const step0 = document.getElementById('step0');
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
     const salaryInput = document.getElementById('salaryInput');
     const cashInput = document.getElementById('cashInput');
     const toggleBtns = document.querySelectorAll('.toggle-btn');
+
+    // Step 0 (Welcome) -> Step 1
+    document.getElementById('toStep1').addEventListener('click', () => {
+        step0.classList.add('hidden');
+        step1.classList.remove('hidden');
+        salaryInput.focus();
+    });
 
     // Period toggle
     toggleBtns.forEach(btn => {

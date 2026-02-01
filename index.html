@@ -21,7 +21,35 @@
             <h1>💰 CashFlow</h1>
             <p class="tagline" data-i18n="tagline">Watch your money grow in real-time</p>
 
-            <div class="onboarding-step" id="step1">
+            <!-- Welcome Step -->
+            <div class="onboarding-step" id="step0">
+                <div class="welcome-features">
+                    <div class="welcome-item">
+                        <span class="welcome-icon">🔒</span>
+                        <div class="welcome-text">
+                            <strong data-i18n="welcome_privacy_title">100% Private</strong>
+                            <p data-i18n="welcome_privacy_desc">Your data never leaves your device. No trackers, no servers, no accounts.</p>
+                        </div>
+                    </div>
+                    <div class="welcome-item">
+                        <span class="welcome-icon">💸</span>
+                        <div class="welcome-text">
+                            <strong data-i18n="welcome_flow_title">Constant Cashflow</strong>
+                            <p data-i18n="welcome_flow_desc">Your salary flows in 24/7. Watch your balance tick up every second you exist.</p>
+                        </div>
+                    </div>
+                    <div class="welcome-item">
+                        <span class="welcome-icon">🎮</span>
+                        <div class="welcome-text">
+                            <strong data-i18n="welcome_game_title">Gamify Saving</strong>
+                            <p data-i18n="welcome_game_desc">Track expenses, beat your budget, and watch your wealth grow in real-time.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="next-btn" id="toStep1" data-i18n="get_started">Get Started →</button>
+            </div>
+
+            <div class="onboarding-step hidden" id="step1">
                 <h2 data-i18n="whats_salary">What's your salary?</h2>
                 <div class="input-group">
                     <span class="currency">$</span>
