@@ -121,6 +121,13 @@ const translations = {
         settings_saved: "Settings saved!",
         reset_confirm: "Are you sure you want to reset all data? This cannot be undone.",
 
+        // Edit Transaction
+        edit_transaction: "Edit Transaction",
+        transaction_date: "Date",
+        save: "Save",
+        delete: "Delete",
+        delete_confirm: "Delete this transaction?",
+
         // Chart labels
         week_label: "Week",
         months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -244,6 +251,13 @@ const translations = {
         // Alerts
         settings_saved: "설정이 저장되었습니다!",
         reset_confirm: "모든 데이터를 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+
+        // Edit Transaction
+        edit_transaction: "거래 수정",
+        transaction_date: "날짜",
+        save: "저장",
+        delete: "삭제",
+        delete_confirm: "이 거래를 삭제하시겠습니까?",
 
         // Chart labels
         week_label: "주",
@@ -649,6 +663,7 @@ function initMainApp() {
     updateSettingsForm();
     initTabs();
     initTransactionModal();
+    initEditModal();
     initChart();
     startCounter();
     updateBudgetSuggestions();
@@ -832,7 +847,7 @@ function updateTransactionsList() {
     }
 
     list.innerHTML = transactions.map(trans => `
-        <div class="transaction-item">
+        <div class="transaction-item" data-id="${trans.id}">
             <div class="transaction-info">
                 <div class="transaction-icon">${trans.type === 'income' ? '💰' : getCategoryIcon(trans.category)}</div>
                 <div class="transaction-details">
@@ -843,6 +858,108 @@ function updateTransactionsList() {
             <span class="transaction-amount ${trans.type}">${trans.type === 'expense' ? '-' : '+'}${formatCurrency(trans.amount)}</span>
         </div>
     `).join('');
+
+    // Add click handlers to transaction items
+    list.querySelectorAll('.transaction-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const transId = parseInt(item.dataset.id);
+            openEditModal(transId);
+        });
+    });
+}
+
+// ==================== EDIT TRANSACTION MODAL ====================
+let editingTransactionId = null;
+
+function openEditModal(transId) {
+    const transaction = appData.transactions.find(t => t.id === transId);
+    if (!transaction) return;
+
+    editingTransactionId = transId;
+
+    const modal = document.getElementById('editModal');
+    const amountInput = document.getElementById('editAmount');
+    const noteInput = document.getElementById('editNote');
+    const categorySelect = document.getElementById('editCategory');
+    const dateInput = document.getElementById('editDate');
+
+    // Populate the form
+    amountInput.value = transaction.amount;
+    noteInput.value = transaction.note || '';
+    categorySelect.value = transaction.category || 'other';
+
+    // Format date for datetime-local input
+    const date = new Date(transaction.date);
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    dateInput.value = localDate.toISOString().slice(0, 16);
+
+    modal.classList.remove('hidden');
+}
+
+function initEditModal() {
+    const modal = document.getElementById('editModal');
+    const amountInput = document.getElementById('editAmount');
+    const noteInput = document.getElementById('editNote');
+    const categorySelect = document.getElementById('editCategory');
+    const dateInput = document.getElementById('editDate');
+
+    // Cancel button
+    document.getElementById('cancelEdit').addEventListener('click', () => {
+        modal.classList.add('hidden');
+        editingTransactionId = null;
+    });
+
+    // Save button
+    document.getElementById('saveEdit').addEventListener('click', () => {
+        if (editingTransactionId === null) return;
+
+        const amount = parseFloat(amountInput.value) || 0;
+        if (amount <= 0) {
+            amountInput.focus();
+            return;
+        }
+
+        // Find and update the transaction
+        const transIndex = appData.transactions.findIndex(t => t.id === editingTransactionId);
+        if (transIndex !== -1) {
+            appData.transactions[transIndex].amount = amount;
+            appData.transactions[transIndex].note = noteInput.value || getCategoryLabel(categorySelect.value);
+            appData.transactions[transIndex].category = categorySelect.value;
+            appData.transactions[transIndex].date = new Date(dateInput.value).toISOString();
+
+            saveData();
+            updateTransactionsList();
+            updateChart();
+            updateBudgetProgress();
+        }
+
+        modal.classList.add('hidden');
+        editingTransactionId = null;
+    });
+
+    // Delete button
+    document.getElementById('deleteTransaction').addEventListener('click', () => {
+        if (editingTransactionId === null) return;
+
+        if (confirm(t('delete_confirm'))) {
+            appData.transactions = appData.transactions.filter(t => t.id !== editingTransactionId);
+            saveData();
+            updateTransactionsList();
+            updateChart();
+            updateBudgetProgress();
+
+            modal.classList.add('hidden');
+            editingTransactionId = null;
+        }
+    });
+
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+            editingTransactionId = null;
+        }
+    });
 }
 
 // ==================== CHART ====================

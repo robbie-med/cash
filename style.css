@@ -835,6 +835,67 @@ select:focus {
     color: white;
 }
 
+.delete-btn {
+    flex: 0.7;
+    padding: 12px;
+    border: 2px solid var(--accent-red);
+    border-radius: 10px;
+    background: none;
+    color: var(--accent-red);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover {
+    background: var(--accent-red);
+    color: white;
+}
+
+/* Date Input */
+.date-input-group {
+    margin-bottom: 20px;
+}
+
+.date-input-group label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.date-input-group input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    color-scheme: dark;
+}
+
+.date-input-group input[type="datetime-local"]:focus {
+    border-color: var(--accent-green);
+}
+
+/* Clickable transaction items */
+.transaction-item {
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.transaction-item:hover {
+    background: var(--bg-secondary);
+    transform: translateX(5px);
+}
+
+.transaction-item:active {
+    transform: scale(0.98);
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 6px;
