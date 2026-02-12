@@ -723,6 +723,7 @@ function calculateExpenseBleedingRate() {
     const now = new Date();
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
+    // Recent expenses from transactions
     const recentExpenses = appData.transactions
         .filter(trans => {
             const transDate = new Date(trans.date);
@@ -730,9 +731,26 @@ function calculateExpenseBleedingRate() {
         })
         .reduce((sum, trans) => sum + trans.amount, 0);
 
+    // Recent debt payments
+    const recentDebtPayments = appData.debts.reduce((total, debt) => {
+        const payments = (debt.payments || [])
+            .filter(p => new Date(p.date) >= thirtyDaysAgo)
+            .reduce((sum, p) => sum + p.amount, 0);
+        return total + payments;
+    }, 0);
+
+    // Daily interest accruing on all debts (converted to 30-day amount)
+    const dailyInterest = appData.debts.reduce((total, debt) => {
+        const calc = calculateDebtWithInterest(debt);
+        if (calc.isPaidOff) return total;
+        const dailyRate = debt.interestRate / 100 / 365;
+        return total + (calc.remainingPrincipal * dailyRate);
+    }, 0);
+    const thirtyDayInterest = dailyInterest * 30;
+
     // Calculate per-second bleeding rate
     const secondsInPeriod = 30 * 24 * 60 * 60;
-    return recentExpenses / secondsInPeriod;
+    return (recentExpenses + recentDebtPayments + thirtyDayInterest) / secondsInPeriod;
 }
 
 // ==================== DEBT CALCULATIONS ====================
@@ -1529,7 +1547,19 @@ function generateChartData(period) {
     if (period === 'day') {
         for (let h = 0; h <= now.getHours(); h++) {
             labels.push(`${h}:00`);
-            incomeData.push(incomePerSecond * 3600 * h);
+
+            // Salary income + additional income transactions
+            const salaryIncome = incomePerSecond * 3600 * h;
+            const additionalIncome = appData.transactions
+                .filter(trans => {
+                    const d = new Date(trans.date);
+                    return trans.type === 'income' &&
+                           d.toDateString() === now.toDateString() &&
+                           d.getHours() <= h;
+                })
+                .reduce((sum, trans) => sum + trans.amount, 0);
+            incomeData.push(salaryIncome + additionalIncome);
+
             taxData.push(taxPerSecond * 3600 * h);
 
             const hourExpenses = appData.transactions
@@ -1549,33 +1579,62 @@ function generateChartData(period) {
 
         for (let d = 0; d <= now.getDay(); d++) {
             labels.push(days[d]);
-            incomeData.push(incomePerSecond * 86400 * (d + 1));
-            taxData.push(taxPerSecond * 86400 * (d + 1));
 
             const dayDate = new Date(startOfWeek);
             dayDate.setDate(startOfWeek.getDate() + d);
+            dayDate.setHours(23, 59, 59, 999);
+
+            // Salary income + additional income transactions
+            const salaryIncome = incomePerSecond * 86400 * (d + 1);
+            const additionalIncome = appData.transactions
+                .filter(trans => {
+                    const td = new Date(trans.date);
+                    return trans.type === 'income' && td >= startOfWeek && td <= dayDate;
+                })
+                .reduce((sum, trans) => sum + trans.amount, 0);
+            incomeData.push(salaryIncome + additionalIncome);
+
+            taxData.push(taxPerSecond * 86400 * (d + 1));
 
             const dayExpenses = appData.transactions
                 .filter(trans => {
                     const td = new Date(trans.date);
-                    return trans.type === 'expense' && td <= dayDate;
+                    return trans.type === 'expense' && td >= startOfWeek && td <= dayDate;
                 })
                 .reduce((sum, trans) => sum + trans.amount, 0);
             expenseData.push(dayExpenses);
         }
     } else if (period === 'month') {
         const weeksInMonth = Math.ceil(now.getDate() / 7);
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
         for (let w = 1; w <= weeksInMonth; w++) {
             labels.push(`${t('week_label')} ${w}`);
-            incomeData.push(incomePerSecond * 86400 * 7 * w);
+
+            const weekEnd = new Date(now.getFullYear(), now.getMonth(), Math.min(w * 7, now.getDate()));
+            weekEnd.setHours(23, 59, 59, 999);
+
+            // Salary income + additional income transactions
+            const salaryIncome = incomePerSecond * 86400 * 7 * w;
+            const additionalIncome = appData.transactions
+                .filter(trans => {
+                    const td = new Date(trans.date);
+                    return trans.type === 'income' &&
+                           td.getMonth() === now.getMonth() &&
+                           td.getFullYear() === now.getFullYear() &&
+                           td <= weekEnd;
+                })
+                .reduce((sum, trans) => sum + trans.amount, 0);
+            incomeData.push(salaryIncome + additionalIncome);
+
             taxData.push(taxPerSecond * 86400 * 7 * w);
 
-            const weekEnd = new Date(now.getFullYear(), now.getMonth(), w * 7);
             const weekExpenses = appData.transactions
                 .filter(trans => {
                     const td = new Date(trans.date);
                     return trans.type === 'expense' &&
                            td.getMonth() === now.getMonth() &&
+                           td.getFullYear() === now.getFullYear() &&
                            td <= weekEnd;
                 })
                 .reduce((sum, trans) => sum + trans.amount, 0);
@@ -1584,7 +1643,21 @@ function generateChartData(period) {
     } else if (period === 'year') {
         for (let m = 0; m <= now.getMonth(); m++) {
             labels.push(months[m]);
-            incomeData.push(incomePerSecond * 86400 * 30 * (m + 1));
+
+            const monthEnd = new Date(now.getFullYear(), m + 1, 0, 23, 59, 59, 999);
+
+            // Salary income + additional income transactions
+            const salaryIncome = incomePerSecond * 86400 * 30 * (m + 1);
+            const additionalIncome = appData.transactions
+                .filter(trans => {
+                    const td = new Date(trans.date);
+                    return trans.type === 'income' &&
+                           td.getFullYear() === now.getFullYear() &&
+                           td.getMonth() <= m;
+                })
+                .reduce((sum, trans) => sum + trans.amount, 0);
+            incomeData.push(salaryIncome + additionalIncome);
+
             taxData.push(taxPerSecond * 86400 * 30 * (m + 1));
 
             const monthExpenses = appData.transactions
@@ -1629,7 +1702,7 @@ function updateBudgetSuggestions() {
 
     document.getElementById('needsAmount').textContent = formatCurrency(netMonthly * 0.5);
     document.getElementById('wantsAmount').textContent = formatCurrency(netMonthly * 0.3);
-    document.getElementById('savingsAmount').textContent = formatCurrency(netMonthly * 0.2);
+    document.getElementById('budgetSavingsAmount').textContent = formatCurrency(netMonthly * 0.2);
 
     updateBudgetProgress();
 }

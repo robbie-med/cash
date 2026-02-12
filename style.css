@@ -161,7 +161,8 @@ html, body {
     border-color: var(--accent-green);
 }
 
-.input-group .currency {
+.input-group .currency,
+.input-group .percent-symbol {
     font-size: 1.5rem;
     color: var(--accent-green);
     margin-right: 8px;
