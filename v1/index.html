@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CashFlow 2.0 - Advanced Money Tracker</title>
+    <title>CashFlow - Gamify Your Income</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a1a2e">
@@ -18,7 +18,7 @@
     <!-- Onboarding Screen -->
     <div id="onboarding" class="screen">
         <div class="onboarding-container">
-            <h1>💰 CashFlow 2.0</h1>
+            <h1>💰 CashFlow</h1>
             <p class="tagline" data-i18n="tagline">Watch your money grow in real-time</p>
 
             <!-- Welcome Step -->
@@ -100,9 +100,6 @@
                     </select>
                 </div>
 
-                <label class="select-label" data-i18n="salary_start_date">When did this salary start?</label>
-                <input type="date" id="salaryStartDate" class="date-input">
-
                 <button class="start-btn" id="startApp" data-i18n="start_earning">Start Earning! 🚀</button>
             </div>
         </div>
@@ -114,43 +111,21 @@
         <header class="balance-header">
             <p class="balance-label" data-i18n="current_balance">Current Balance</p>
             <h1 class="balance-amount" id="balanceDisplay">$0.00</h1>
-            <div class="rate-row">
-                <div class="earning-rate">
-                    <span class="pulse"></span>
-                    <span id="earningRate">+$0.00/sec</span>
-                </div>
-                <div class="bleeding-rate">
-                    <span class="pulse red"></span>
-                    <span id="bleedingRate">-$0.00/sec</span>
-                </div>
+            <div class="earning-rate">
+                <span class="pulse"></span>
+                <span id="earningRate">+$0.00/sec</span>
             </div>
         </header>
-
-        <!-- Period Selector -->
-        <div class="period-selector-row">
-            <label data-i18n="view_period">View Period</label>
-            <select id="periodSelector">
-                <option value="day" data-i18n="today">Today</option>
-                <option value="week" data-i18n="this_week">This Week</option>
-                <option value="month" data-i18n="this_month">This Month</option>
-                <option value="year" data-i18n="this_year">This Year</option>
-                <option value="all" data-i18n="since_start">Since Start</option>
-            </select>
-        </div>
 
         <!-- Stats Row -->
         <div class="stats-row">
             <div class="stat-card">
-                <span class="stat-label" id="periodLabel" data-i18n="today">Today</span>
-                <span class="stat-value positive" id="periodEarned">+$0</span>
+                <span class="stat-label" data-i18n="today">Today</span>
+                <span class="stat-value positive" id="todayEarned">+$0</span>
             </div>
             <div class="stat-card">
-                <span class="stat-label" data-i18n="taxes_period">Taxes</span>
-                <span class="stat-value negative" id="periodTaxes">-$0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label" data-i18n="expenses_period">Spent</span>
-                <span class="stat-value negative" id="periodExpenses">-$0</span>
+                <span class="stat-label" data-i18n="taxes_ytd">Taxes (YTD)</span>
+                <span class="stat-value negative" id="taxesPaid">-$0</span>
             </div>
             <div class="stat-card">
                 <span class="stat-label" data-i18n="net_worth">Net Worth</span>
@@ -172,12 +147,10 @@
 
         <!-- Navigation Tabs -->
         <nav class="tab-nav">
-            <button class="tab-btn active" data-tab="chart"><span>📊</span></button>
-            <button class="tab-btn" data-tab="transactions"><span>📝</span></button>
-            <button class="tab-btn" data-tab="budget"><span>💡</span></button>
-            <button class="tab-btn" data-tab="savings"><span>🏦</span></button>
-            <button class="tab-btn" data-tab="debts"><span>💳</span></button>
-            <button class="tab-btn" data-tab="settings"><span>⚙️</span></button>
+            <button class="tab-btn active" data-tab="chart"><span>📊</span> <span data-i18n="chart">Chart</span></button>
+            <button class="tab-btn" data-tab="transactions"><span>📝</span> <span data-i18n="history">History</span></button>
+            <button class="tab-btn" data-tab="budget"><span>💡</span> <span data-i18n="budget">Budget</span></button>
+            <button class="tab-btn" data-tab="settings"><span>⚙️</span> <span data-i18n="settings">Settings</span></button>
         </nav>
 
         <!-- Tab Content -->
@@ -326,49 +299,6 @@
                 </div>
             </div>
 
-            <!-- Savings Tab -->
-            <div class="tab-panel" id="savingsPanel">
-                <div class="savings-header">
-                    <h3>🏦 <span data-i18n="savings_balance">Savings Balance</span></h3>
-                    <div class="savings-balance" id="savingsBalanceDisplay">$0.00</div>
-                </div>
-
-                <div class="savings-actions">
-                    <div class="input-group small">
-                        <span class="currency">$</span>
-                        <input type="number" id="savingsAmount" placeholder="0.00" min="0" step="0.01">
-                    </div>
-                    <div class="savings-buttons">
-                        <button class="action-btn income-btn small" id="transferToSavings" data-i18n="transfer_to_savings">Transfer</button>
-                        <button class="action-btn expense-btn small" id="withdrawFromSavings" data-i18n="withdraw_from_savings">Withdraw</button>
-                    </div>
-                </div>
-
-                <div class="savings-history">
-                    <h4 data-i18n="savings_history">Transfer History</h4>
-                    <div class="transactions-list" id="savingsHistoryList">
-                        <p class="empty-state" data-i18n="no_savings_history">No transfers yet</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Debts Tab -->
-            <div class="tab-panel" id="debtsPanel">
-                <div class="debts-header">
-                    <h3>💳 <span data-i18n="total_debt">Total Debt</span></h3>
-                    <div class="total-debt negative" id="totalDebtDisplay">$0.00</div>
-                </div>
-
-                <button class="action-btn add-debt-btn" id="addDebtBtn">
-                    <span class="icon">+</span>
-                    <span data-i18n="add_debt">Add Debt/Loan</span>
-                </button>
-
-                <div class="debts-list" id="debtsList">
-                    <p class="empty-state" data-i18n="no_debts">No debts - you're debt free!</p>
-                </div>
-            </div>
-
             <!-- Settings Tab -->
             <div class="tab-panel" id="settingsPanel">
                 <div class="settings-list">
@@ -380,30 +310,12 @@
                         </select>
                     </div>
                     <div class="settings-item">
-                        <label data-i18n="current_salary">Current Salary</label>
+                        <label data-i18n="annual_salary">Annual Salary</label>
                         <div class="input-group small">
                             <span class="currency" id="settingsCurrencySymbol">$</span>
                             <input type="number" id="settingsSalary" placeholder="0">
                         </div>
                     </div>
-
-                    <!-- Salary History Section -->
-                    <div class="settings-item salary-section">
-                        <label data-i18n="salary_history">Salary History</label>
-                        <div id="salaryHistoryList" class="salary-history-list"></div>
-
-                        <div class="salary-change-form">
-                            <h5 data-i18n="add_salary_change">Record Salary Change</h5>
-                            <div class="input-group small">
-                                <span class="currency">$</span>
-                                <input type="number" id="newSalaryAmount" data-i18n-placeholder="new_salary" placeholder="New Salary Amount">
-                            </div>
-                            <label class="select-label" data-i18n="effective_date">Effective Date</label>
-                            <input type="date" id="salaryEffectiveDate" class="date-input">
-                            <button class="save-settings-btn small" id="addSalaryChange" data-i18n="add">Add</button>
-                        </div>
-                    </div>
-
                     <div id="settingsUsTaxFields">
                         <div class="settings-item">
                             <label data-i18n="filing_status">Filing Status</label>
@@ -494,26 +406,6 @@
                 <button class="delete-btn" id="deleteTransaction" data-i18n="delete">Delete</button>
                 <button class="cancel-btn" id="cancelEdit" data-i18n="cancel">Cancel</button>
                 <button class="confirm-btn" id="saveEdit" data-i18n="save">Save</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Debt Modal -->
-    <div class="modal-overlay hidden" id="debtModal">
-        <div class="modal">
-            <h3 data-i18n="add_debt">Add Debt/Loan</h3>
-            <input type="text" id="debtName" data-i18n-placeholder="debt_name" placeholder="Name (e.g., Credit Card, Car Loan)" class="note-input">
-            <div class="input-group">
-                <span class="currency">$</span>
-                <input type="number" id="debtPrincipal" data-i18n-placeholder="principal" placeholder="Principal Amount" min="0" step="0.01">
-            </div>
-            <div class="input-group">
-                <span class="currency">%</span>
-                <input type="number" id="debtRate" data-i18n-placeholder="interest_rate" placeholder="Annual Interest Rate" min="0" max="100" step="0.01">
-            </div>
-            <div class="modal-buttons">
-                <button class="cancel-btn" id="cancelDebt" data-i18n="cancel">Cancel</button>
-                <button class="confirm-btn" id="confirmDebt" data-i18n="add">Add</button>
             </div>
         </div>
     </div>

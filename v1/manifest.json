@@ -1,7 +1,7 @@
 {
-    "name": "CashFlow 2.0 - Advanced Money Tracker",
-    "short_name": "CashFlow 2",
-    "description": "Track income, savings, debts, and expenses in real-time with advanced features",
+    "name": "CashFlow Classic (V1)",
+    "short_name": "CashFlow V1",
+    "description": "Watch your money grow in real-time and gamify your income vs spending",
     "start_url": "./index.html",
     "scope": "./",
     "display": "standalone",

@@ -1,4 +1,4 @@
-// CashFlow 2.0 - Advanced Money Tracker
+// CashFlow App - Main JavaScript
 
 // ==================== TRANSLATIONS ====================
 const translations = {
@@ -33,31 +33,25 @@ const translations = {
         high_tax: "High (≈10% - CA, NJ, etc.)",
         very_high_tax: "Very High (≈13% - CA top bracket)",
         start_earning: "Start Earning! 🚀",
-        salary_start_date: "When did this salary start?",
 
         // Main App
         current_balance: "Current Balance",
         today: "Today",
-        this_week: "This Week",
-        this_month: "This Month",
-        this_year: "This Year",
-        since_start: "Since Start",
-        taxes_period: "Taxes",
-        expenses_period: "Spent",
+        taxes_ytd: "Taxes (YTD)",
         net_worth: "Net Worth",
         add_expense: "Add Expense",
         add_income: "Add Income",
-        bleeding: "Bleeding",
 
         // Tabs
         chart: "Chart",
         history: "History",
         budget: "Budget",
-        savings_tab: "Savings",
-        debts_tab: "Debts",
         settings: "Settings",
 
         // Chart
+        this_week: "This Week",
+        this_month: "This Month",
+        this_year: "This Year",
         income: "Income",
         expenses: "Expenses",
         taxes: "Taxes",
@@ -83,35 +77,8 @@ const translations = {
         spending: "Spending",
         savings: "Savings",
 
-        // Savings
-        savings_balance: "Savings Balance",
-        transfer_to_savings: "Transfer to Savings",
-        withdraw_from_savings: "Withdraw",
-        savings_history: "Transfer History",
-        no_savings_history: "No transfers yet",
-        transfer: "Transfer",
-        withdrawal: "Withdrawal",
-
-        // Debts
-        total_debt: "Total Debt",
-        add_debt: "Add Debt/Loan",
-        debt_name: "Name (e.g., Credit Card, Car Loan)",
-        principal: "Principal Amount",
-        interest_rate: "Annual Interest Rate (%)",
-        make_payment: "Make Payment",
-        payment_amount: "Payment Amount",
-        no_debts: "No debts - you're debt free!",
-        accrued_interest: "Accrued Interest",
-        remaining: "Remaining",
-        paid_off: "Paid Off!",
-
         // Settings
         annual_salary: "Annual Salary",
-        current_salary: "Current Salary",
-        salary_history: "Salary History",
-        add_salary_change: "Record Salary Change",
-        new_salary: "New Salary Amount",
-        effective_date: "Effective Date",
         state_tax_rate: "State Tax Rate",
         no_state_tax_short: "No State Tax",
         low_tax_short: "Low (≈5%)",
@@ -141,7 +108,7 @@ const translations = {
         cancel: "Cancel",
         add: "Add",
 
-        // Categories
+        // Categories (for transaction list)
         food: "Food & Dining",
         transport: "Transportation",
         shopping: "Shopping",
@@ -164,10 +131,7 @@ const translations = {
         // Chart labels
         week_label: "Week",
         months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-
-        // Period selector
-        view_period: "View Period"
+        days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     },
     ko: {
         // Welcome
@@ -200,31 +164,25 @@ const translations = {
         high_tax: "높음 (≈10% - CA, NJ 등)",
         very_high_tax: "매우 높음 (≈13% - CA 최고세율)",
         start_earning: "시작하기! 🚀",
-        salary_start_date: "이 급여가 언제부터 시작되었나요?",
 
         // Main App
         current_balance: "현재 잔액",
         today: "오늘",
-        this_week: "이번 주",
-        this_month: "이번 달",
-        this_year: "올해",
-        since_start: "시작 이후",
-        taxes_period: "세금",
-        expenses_period: "지출",
+        taxes_ytd: "세금 (연간)",
         net_worth: "순자산",
         add_expense: "지출 추가",
         add_income: "수입 추가",
-        bleeding: "유출",
 
         // Tabs
         chart: "차트",
         history: "내역",
         budget: "예산",
-        savings_tab: "저축",
-        debts_tab: "부채",
         settings: "설정",
 
         // Chart
+        this_week: "이번 주",
+        this_month: "이번 달",
+        this_year: "올해",
         income: "수입",
         expenses: "지출",
         taxes: "세금",
@@ -250,35 +208,8 @@ const translations = {
         spending: "지출",
         savings: "저축",
 
-        // Savings
-        savings_balance: "저축 잔액",
-        transfer_to_savings: "저축으로 이체",
-        withdraw_from_savings: "출금",
-        savings_history: "이체 내역",
-        no_savings_history: "이체 내역 없음",
-        transfer: "이체",
-        withdrawal: "출금",
-
-        // Debts
-        total_debt: "총 부채",
-        add_debt: "부채/대출 추가",
-        debt_name: "이름 (예: 신용카드, 자동차 대출)",
-        principal: "원금",
-        interest_rate: "연 이자율 (%)",
-        make_payment: "결제하기",
-        payment_amount: "결제 금액",
-        no_debts: "부채 없음 - 무부채입니다!",
-        accrued_interest: "발생 이자",
-        remaining: "잔액",
-        paid_off: "완납!",
-
         // Settings
         annual_salary: "연봉",
-        current_salary: "현재 급여",
-        salary_history: "급여 이력",
-        add_salary_change: "급여 변경 기록",
-        new_salary: "새 급여 금액",
-        effective_date: "적용 시작일",
         state_tax_rate: "주세율",
         no_state_tax_short: "주세 없음",
         low_tax_short: "낮음 (≈5%)",
@@ -308,7 +239,7 @@ const translations = {
         cancel: "취소",
         add: "추가",
 
-        // Categories
+        // Categories (for transaction list)
         food: "음식",
         transport: "교통",
         shopping: "쇼핑",
@@ -331,10 +262,7 @@ const translations = {
         // Chart labels
         week_label: "주",
         months: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-        days: ["일", "월", "화", "수", "목", "금", "토"],
-
-        // Period selector
-        view_period: "조회 기간"
+        days: ["일", "월", "화", "수", "목", "금", "토"]
     }
 };
 
@@ -342,25 +270,19 @@ let currentLang = 'en';
 
 // ==================== DATA STORE ====================
 const defaultData = {
-    // Salary history - array of salary periods
-    salaryHistory: [], // [{startDate, endDate, salary, salaryPeriod}]
+    salary: 0,
+    salaryPeriod: 'annual',
     cashOnHand: 0,
     filingStatus: 'single',
     stateTaxRate: 0,
     savingsGoal: 20,
     transactions: [],
     startDate: null,
+    totalEarned: 0,
     onboarded: false,
     language: 'en',
     country: 'us',
-    currency: 'USD',
-    // V2 additions
-    viewPeriod: 'day', // day, week, month, year, all
-    savings: {
-        balance: 0,
-        transfers: [] // [{id, date, amount, type: 'deposit'|'withdrawal'}]
-    },
-    debts: [] // [{id, name, principal, interestRate, startDate, payments: [{date, amount}]}]
+    currency: 'USD'
 };
 
 let appData = { ...defaultData };
@@ -398,13 +320,14 @@ const federalBrackets = {
     ]
 };
 
+// FICA rates
 const SOCIAL_SECURITY_RATE = 0.062;
 const SOCIAL_SECURITY_CAP = 168600;
 const MEDICARE_RATE = 0.0145;
 const MEDICARE_ADDITIONAL_RATE = 0.009;
 const MEDICARE_ADDITIONAL_THRESHOLD = 200000;
 
-// Korean tax brackets (2024)
+// Korean tax brackets (2024) - in KRW
 const koreanBrackets = [
     { min: 0, max: 14000000, rate: 0.06 },
     { min: 14000000, max: 50000000, rate: 0.15 },
@@ -416,10 +339,11 @@ const koreanBrackets = [
     { min: 1000000000, max: Infinity, rate: 0.45 }
 ];
 
-const KOREAN_NATIONAL_PENSION = 0.045;
-const KOREAN_HEALTH_INSURANCE = 0.03545;
-const KOREAN_LONG_TERM_CARE = 0.004591;
-const KOREAN_EMPLOYMENT_INSURANCE = 0.009;
+// Korean social insurance rates
+const KOREAN_NATIONAL_PENSION = 0.045; // 4.5% employee share
+const KOREAN_HEALTH_INSURANCE = 0.03545; // 3.545% employee share
+const KOREAN_LONG_TERM_CARE = 0.004591; // 0.4591% of health insurance
+const KOREAN_EMPLOYMENT_INSURANCE = 0.009; // 0.9%
 
 // ==================== TRANSLATION FUNCTIONS ====================
 function t(key) {
@@ -427,6 +351,7 @@ function t(key) {
 }
 
 function applyTranslations() {
+    // Update all elements with data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[currentLang][key]) {
@@ -434,6 +359,7 @@ function applyTranslations() {
         }
     });
 
+    // Update placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[currentLang][key]) {
@@ -441,22 +367,24 @@ function applyTranslations() {
         }
     });
 
+    // Update language toggle button text
     const langToggle = document.getElementById('langToggle');
     if (langToggle) {
         langToggle.textContent = currentLang === 'en' ? '한국어' : 'English';
     }
 
+    // Update language select in settings
     const langSelect = document.getElementById('languageSelect');
     if (langSelect) {
         langSelect.value = currentLang;
     }
 
+    // Update HTML lang attribute
     document.documentElement.lang = currentLang;
 
+    // Refresh dynamic content
     if (appData.onboarded) {
         updateTransactionsList();
-        updateSavingsPanel();
-        updateDebtsPanel();
         if (chart) {
             updateChart();
         }
@@ -493,6 +421,7 @@ function formatCompact(amount) {
     const symbol = currency === 'KRW' ? '₩' : '$';
 
     if (currency === 'KRW') {
+        // Korean uses 억 (100 million) and 만 (10 thousand)
         if (Math.abs(amount) >= 100000000) {
             return symbol + (amount / 100000000).toFixed(1) + '억';
         }
@@ -511,18 +440,13 @@ function formatCompact(amount) {
 }
 
 function saveData() {
-    localStorage.setItem('cashflow_data_v2', JSON.stringify(appData));
+    localStorage.setItem('cashflow_data', JSON.stringify(appData));
 }
 
 function loadData() {
-    const saved = localStorage.getItem('cashflow_data_v2');
+    const saved = localStorage.getItem('cashflow_data');
     if (saved) {
         appData = { ...defaultData, ...JSON.parse(saved) };
-        // Ensure new fields exist
-        if (!appData.savings) appData.savings = { balance: 0, transfers: [] };
-        if (!appData.debts) appData.debts = [];
-        if (!appData.salaryHistory) appData.salaryHistory = [];
-        if (!appData.viewPeriod) appData.viewPeriod = 'day';
         if (appData.language) {
             currentLang = appData.language;
         }
@@ -548,9 +472,11 @@ function calculateFederalTax(annualIncome) {
 }
 
 function calculateFICA(annualIncome) {
+    // Social Security
     const ssWages = Math.min(annualIncome, SOCIAL_SECURITY_CAP);
     const ssTax = ssWages * SOCIAL_SECURITY_RATE;
 
+    // Medicare
     let medicareTax = annualIncome * MEDICARE_RATE;
     if (annualIncome > MEDICARE_ADDITIONAL_THRESHOLD) {
         medicareTax += (annualIncome - MEDICARE_ADDITIONAL_THRESHOLD) * MEDICARE_ADDITIONAL_RATE;
@@ -585,7 +511,7 @@ function calculateKoreanSocialInsurance(annualIncome) {
 function calculateTotalTax(annualIncome) {
     if (appData.country === 'kr') {
         const incomeTax = calculateKoreanIncomeTax(annualIncome);
-        const localTax = incomeTax * 0.1;
+        const localTax = incomeTax * 0.1; // Local income tax is 10% of income tax
         const socialInsurance = calculateKoreanSocialInsurance(annualIncome);
 
         return {
@@ -597,6 +523,7 @@ function calculateTotalTax(annualIncome) {
         };
     }
 
+    // US taxes
     const federal = calculateFederalTax(annualIncome);
     const fica = calculateFICA(annualIncome);
     const state = annualIncome * appData.stateTaxRate;
@@ -610,32 +537,11 @@ function calculateTotalTax(annualIncome) {
     };
 }
 
-// ==================== SALARY CALCULATIONS ====================
-function getCurrentSalary() {
-    if (appData.salaryHistory.length === 0) return { salary: 0, salaryPeriod: 'annual' };
-
-    const now = new Date();
-    // Find the current active salary (no endDate or endDate in future)
-    for (let i = appData.salaryHistory.length - 1; i >= 0; i--) {
-        const entry = appData.salaryHistory[i];
-        const startDate = new Date(entry.startDate);
-        const endDate = entry.endDate ? new Date(entry.endDate) : null;
-
-        if (startDate <= now && (!endDate || endDate > now)) {
-            return entry;
-        }
-    }
-
-    // Return the most recent entry
-    return appData.salaryHistory[appData.salaryHistory.length - 1];
-}
-
 function getAnnualSalary() {
-    const current = getCurrentSalary();
-    if (current.salaryPeriod === 'monthly') {
-        return current.salary * 12;
+    if (appData.salaryPeriod === 'monthly') {
+        return appData.salary * 12;
     }
-    return current.salary;
+    return appData.salary;
 }
 
 function getNetAnnualIncome() {
@@ -646,6 +552,7 @@ function getNetAnnualIncome() {
 
 function getIncomePerSecond() {
     const netAnnual = getNetAnnualIncome();
+    // 365.25 days * 24 hours * 60 minutes * 60 seconds
     return netAnnual / (365.25 * 24 * 60 * 60);
 }
 
@@ -653,119 +560,6 @@ function getTaxPerSecond() {
     const gross = getAnnualSalary();
     const taxes = calculateTotalTax(gross);
     return taxes.total / (365.25 * 24 * 60 * 60);
-}
-
-// ==================== PERIOD CALCULATIONS ====================
-function getPeriodStart(period) {
-    const now = new Date();
-
-    switch (period) {
-        case 'day':
-            return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        case 'week':
-            const dayOfWeek = now.getDay();
-            const start = new Date(now);
-            start.setDate(now.getDate() - dayOfWeek);
-            start.setHours(0, 0, 0, 0);
-            return start;
-        case 'month':
-            return new Date(now.getFullYear(), now.getMonth(), 1);
-        case 'year':
-            return new Date(now.getFullYear(), 0, 1);
-        case 'all':
-        default:
-            return new Date(appData.startDate || now);
-    }
-}
-
-function calculatePeriodStats(period) {
-    const now = new Date();
-    const periodStart = getPeriodStart(period);
-    const trackingStart = new Date(appData.startDate || now);
-
-    // Use the later of period start or tracking start
-    const effectiveStart = periodStart > trackingStart ? periodStart : trackingStart;
-    const elapsedSeconds = Math.max(0, (now - effectiveStart) / 1000);
-
-    const incomePerSecond = getIncomePerSecond();
-    const taxPerSecond = getTaxPerSecond();
-
-    const periodIncome = incomePerSecond * elapsedSeconds;
-    const periodTaxes = taxPerSecond * elapsedSeconds;
-
-    // Calculate expenses in period
-    const periodExpenses = appData.transactions
-        .filter(trans => {
-            const transDate = new Date(trans.date);
-            return trans.type === 'expense' && transDate >= effectiveStart && transDate <= now;
-        })
-        .reduce((sum, trans) => sum + trans.amount, 0);
-
-    // Calculate additional income in period
-    const periodAdditionalIncome = appData.transactions
-        .filter(trans => {
-            const transDate = new Date(trans.date);
-            return trans.type === 'income' && transDate >= effectiveStart && transDate <= now;
-        })
-        .reduce((sum, trans) => sum + trans.amount, 0);
-
-    return {
-        income: periodIncome + periodAdditionalIncome,
-        taxes: periodTaxes,
-        expenses: periodExpenses,
-        net: periodIncome + periodAdditionalIncome - periodExpenses,
-        elapsedSeconds
-    };
-}
-
-function calculateExpenseBleedingRate() {
-    // Calculate average expense rate based on recent spending
-    const now = new Date();
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-    const recentExpenses = appData.transactions
-        .filter(trans => {
-            const transDate = new Date(trans.date);
-            return trans.type === 'expense' && transDate >= thirtyDaysAgo;
-        })
-        .reduce((sum, trans) => sum + trans.amount, 0);
-
-    // Calculate per-second bleeding rate
-    const secondsInPeriod = 30 * 24 * 60 * 60;
-    return recentExpenses / secondsInPeriod;
-}
-
-// ==================== DEBT CALCULATIONS ====================
-function calculateDebtWithInterest(debt) {
-    const now = new Date();
-    const startDate = new Date(debt.startDate);
-    const daysSinceStart = (now - startDate) / (1000 * 60 * 60 * 24);
-
-    // Daily interest rate
-    const dailyRate = debt.interestRate / 100 / 365;
-
-    // Calculate total payments
-    const totalPayments = (debt.payments || []).reduce((sum, p) => sum + p.amount, 0);
-
-    // Simple interest calculation on remaining principal
-    const remainingPrincipal = debt.principal - totalPayments;
-    const accruedInterest = remainingPrincipal * dailyRate * daysSinceStart;
-
-    return {
-        principal: debt.principal,
-        totalPayments,
-        remainingPrincipal: Math.max(0, remainingPrincipal),
-        accruedInterest: Math.max(0, accruedInterest),
-        totalOwed: Math.max(0, remainingPrincipal + accruedInterest),
-        isPaidOff: remainingPrincipal <= 0
-    };
-}
-
-function getTotalDebt() {
-    return appData.debts.reduce((total, debt) => {
-        const calc = calculateDebtWithInterest(debt);
-        return total + calc.totalOwed;
-    }, 0);
 }
 
 // ==================== ONBOARDING ====================
@@ -778,39 +572,43 @@ function initOnboarding() {
     const cashInput = document.getElementById('cashInput');
     const toggleBtns = document.querySelectorAll('.toggle-btn');
 
-    let salaryPeriod = 'annual';
-
+    // Step 0 (Welcome) -> Step 1
     document.getElementById('toStep1').addEventListener('click', () => {
         step0.classList.add('hidden');
         step1.classList.remove('hidden');
         salaryInput.focus();
     });
 
+    // Period toggle
     toggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             toggleBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            salaryPeriod = btn.dataset.period;
+            appData.salaryPeriod = btn.dataset.period;
         });
     });
 
+    // Step 1 -> Step 2
     document.getElementById('toStep2').addEventListener('click', () => {
         const salary = parseFloat(salaryInput.value) || 0;
         if (salary <= 0) {
             salaryInput.focus();
             return;
         }
+        appData.salary = salary;
         step1.classList.add('hidden');
         step2.classList.remove('hidden');
         cashInput.focus();
     });
 
+    // Step 2 -> Step 3
     document.getElementById('toStep3').addEventListener('click', () => {
         appData.cashOnHand = parseFloat(cashInput.value) || 0;
         step2.classList.add('hidden');
         step3.classList.remove('hidden');
     });
 
+    // Country selection in onboarding
     const countrySelect = document.getElementById('countrySelect');
     const usTaxFields = document.getElementById('usTaxFields');
 
@@ -821,13 +619,13 @@ function initOnboarding() {
         } else {
             usTaxFields.classList.remove('hidden');
         }
+        // Update currency symbols
         updateCurrencySymbols(country);
     });
 
+    // Start app
     document.getElementById('startApp').addEventListener('click', () => {
         const country = document.getElementById('countrySelect').value;
-        const salaryStartDate = document.getElementById('salaryStartDate').value;
-
         appData.country = country;
         appData.currency = country === 'kr' ? 'KRW' : 'USD';
 
@@ -839,16 +637,7 @@ function initOnboarding() {
             appData.stateTaxRate = 0;
         }
 
-        // Create initial salary history entry
-        const startDate = salaryStartDate ? new Date(salaryStartDate) : new Date();
-        appData.salaryHistory = [{
-            startDate: startDate.toISOString(),
-            endDate: null,
-            salary: parseFloat(salaryInput.value) || 0,
-            salaryPeriod: salaryPeriod
-        }];
-
-        appData.startDate = startDate.toISOString();
+        appData.startDate = new Date().toISOString();
         appData.onboarded = true;
         saveData();
         showMainApp();
@@ -875,33 +664,31 @@ function initMainApp() {
     initTabs();
     initTransactionModal();
     initEditModal();
-    initPeriodSelector();
-    initSavingsPanel();
-    initDebtsPanel();
     initChart();
     startCounter();
     updateBudgetSuggestions();
     updateTransactionsList();
-    updateSavingsPanel();
-    updateDebtsPanel();
     initSettings();
 }
 
 function startCounter() {
     if (counterInterval) clearInterval(counterInterval);
 
+    const incomePerSecond = getIncomePerSecond();
+    const taxPerSecond = getTaxPerSecond();
+
+    // Calculate elapsed time since start
+    const startDate = new Date(appData.startDate);
+
     function updateDisplay() {
         const now = new Date();
-        const period = appData.viewPeriod || 'day';
-        const stats = calculatePeriodStats(period);
-        const bleedingRate = calculateExpenseBleedingRate();
-        const incomePerSecond = getIncomePerSecond();
+        const elapsedSeconds = (now - startDate) / 1000;
 
-        // Total balance calculation
-        const startDate = new Date(appData.startDate);
-        const totalElapsedSeconds = (now - startDate) / 1000;
-        const totalEarned = incomePerSecond * totalElapsedSeconds;
+        // Calculate total earned since start
+        const earnedSinceStart = incomePerSecond * elapsedSeconds;
+        const taxesSinceStart = taxPerSecond * elapsedSeconds;
 
+        // Calculate expenses
         const totalExpenses = appData.transactions
             .filter(t => t.type === 'expense')
             .reduce((sum, t) => sum + t.amount, 0);
@@ -910,71 +697,34 @@ function startCounter() {
             .filter(t => t.type === 'income')
             .reduce((sum, t) => sum + t.amount, 0);
 
-        // Balance = cash on hand + earnings + additional income - expenses - savings transfers
-        const savingsTransfersOut = appData.savings.transfers
-            .filter(t => t.type === 'deposit')
-            .reduce((sum, t) => sum + t.amount, 0);
-        const savingsTransfersIn = appData.savings.transfers
-            .filter(t => t.type === 'withdrawal')
-            .reduce((sum, t) => sum + t.amount, 0);
+        // Current balance
+        const balance = appData.cashOnHand + earnedSinceStart + additionalIncome - totalExpenses;
 
-        const balance = appData.cashOnHand + totalEarned + additionalIncome - totalExpenses - savingsTransfersOut + savingsTransfersIn;
-
-        // Update main balance display
+        // Update displays
         document.getElementById('balanceDisplay').textContent = formatCurrency(balance);
-
-        // Net rate = income per second - bleeding rate
-        const netRate = incomePerSecond - bleedingRate;
         document.getElementById('earningRate').textContent = `+${formatCurrency(incomePerSecond)}/sec`;
 
-        // Bleeding rate display
-        const bleedingDisplay = document.getElementById('bleedingRate');
-        if (bleedingDisplay) {
-            bleedingDisplay.textContent = `-${formatCurrency(bleedingRate)}/sec`;
-        }
+        // Today's earnings
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);
+        const todaySeconds = Math.max(0, (now - Math.max(startDate, todayStart)) / 1000);
+        const todayEarned = incomePerSecond * todaySeconds;
+        document.getElementById('todayEarned').textContent = '+' + formatCompact(todayEarned);
 
-        // Period-specific stats
-        document.getElementById('periodEarned').textContent = '+' + formatCompact(stats.income);
-        document.getElementById('periodTaxes').textContent = '-' + formatCompact(stats.taxes);
-        document.getElementById('periodExpenses').textContent = '-' + formatCompact(stats.expenses);
+        // Taxes paid
+        document.getElementById('taxesPaid').textContent = '-' + formatCompact(taxesSinceStart);
 
-        // Net worth = balance + savings - debts
-        const totalDebt = getTotalDebt();
-        const netWorth = balance + appData.savings.balance - totalDebt;
-        document.getElementById('netWorth').textContent = formatCompact(netWorth);
+        // Net worth
+        document.getElementById('netWorth').textContent = formatCompact(balance);
 
-        // Update period label
-        updatePeriodLabel(period);
+        // Store for later use
+        appData.currentBalance = balance;
+        appData.totalEarned = earnedSinceStart;
+        appData.totalTaxes = taxesSinceStart;
     }
 
     updateDisplay();
-    counterInterval = setInterval(updateDisplay, 100);
-}
-
-function updatePeriodLabel(period) {
-    const labels = {
-        day: t('today'),
-        week: t('this_week'),
-        month: t('this_month'),
-        year: t('this_year'),
-        all: t('since_start')
-    };
-
-    const labelEl = document.getElementById('periodLabel');
-    if (labelEl) {
-        labelEl.textContent = labels[period] || labels.day;
-    }
-}
-
-function initPeriodSelector() {
-    const selector = document.getElementById('periodSelector');
-    if (selector) {
-        selector.value = appData.viewPeriod || 'day';
-        selector.addEventListener('change', (e) => {
-            appData.viewPeriod = e.target.value;
-            saveData();
-        });
-    }
+    counterInterval = setInterval(updateDisplay, 100); // Update 10x per second for smooth animation
 }
 
 // ==================== TABS ====================
@@ -994,10 +744,6 @@ function initTabs() {
 
             if (tabId === 'chart') {
                 updateChart();
-            } else if (tabId === 'savings') {
-                updateSavingsPanel();
-            } else if (tabId === 'debts') {
-                updateDebtsPanel();
             }
         });
     });
@@ -1065,6 +811,7 @@ function initTransactionModal() {
         updateBudgetProgress();
     });
 
+    // Close on overlay click
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.add('hidden');
@@ -1112,6 +859,7 @@ function updateTransactionsList() {
         </div>
     `).join('');
 
+    // Add click handlers to transaction items
     list.querySelectorAll('.transaction-item').forEach(item => {
         item.addEventListener('click', () => {
             const transId = parseInt(item.dataset.id);
@@ -1135,10 +883,12 @@ function openEditModal(transId) {
     const categorySelect = document.getElementById('editCategory');
     const dateInput = document.getElementById('editDate');
 
+    // Populate the form
     amountInput.value = transaction.amount;
     noteInput.value = transaction.note || '';
     categorySelect.value = transaction.category || 'other';
 
+    // Format date for datetime-local input
     const date = new Date(transaction.date);
     const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
     dateInput.value = localDate.toISOString().slice(0, 16);
@@ -1153,11 +903,13 @@ function initEditModal() {
     const categorySelect = document.getElementById('editCategory');
     const dateInput = document.getElementById('editDate');
 
+    // Cancel button
     document.getElementById('cancelEdit').addEventListener('click', () => {
         modal.classList.add('hidden');
         editingTransactionId = null;
     });
 
+    // Save button
     document.getElementById('saveEdit').addEventListener('click', () => {
         if (editingTransactionId === null) return;
 
@@ -1167,6 +919,7 @@ function initEditModal() {
             return;
         }
 
+        // Find and update the transaction
         const transIndex = appData.transactions.findIndex(t => t.id === editingTransactionId);
         if (transIndex !== -1) {
             appData.transactions[transIndex].amount = amount;
@@ -1184,6 +937,7 @@ function initEditModal() {
         editingTransactionId = null;
     });
 
+    // Delete button
     document.getElementById('deleteTransaction').addEventListener('click', () => {
         if (editingTransactionId === null) return;
 
@@ -1199,215 +953,13 @@ function initEditModal() {
         }
     });
 
+    // Close on overlay click
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.add('hidden');
             editingTransactionId = null;
         }
     });
-}
-
-// ==================== SAVINGS PANEL ====================
-function initSavingsPanel() {
-    const transferBtn = document.getElementById('transferToSavings');
-    const withdrawBtn = document.getElementById('withdrawFromSavings');
-    const amountInput = document.getElementById('savingsAmount');
-
-    if (transferBtn) {
-        transferBtn.addEventListener('click', () => {
-            const amount = parseFloat(amountInput.value) || 0;
-            if (amount <= 0) return;
-
-            appData.savings.balance += amount;
-            appData.savings.transfers.push({
-                id: Date.now(),
-                date: new Date().toISOString(),
-                amount: amount,
-                type: 'deposit'
-            });
-
-            saveData();
-            updateSavingsPanel();
-            amountInput.value = '';
-        });
-    }
-
-    if (withdrawBtn) {
-        withdrawBtn.addEventListener('click', () => {
-            const amount = parseFloat(amountInput.value) || 0;
-            if (amount <= 0 || amount > appData.savings.balance) return;
-
-            appData.savings.balance -= amount;
-            appData.savings.transfers.push({
-                id: Date.now(),
-                date: new Date().toISOString(),
-                amount: amount,
-                type: 'withdrawal'
-            });
-
-            saveData();
-            updateSavingsPanel();
-            amountInput.value = '';
-        });
-    }
-}
-
-function updateSavingsPanel() {
-    const balanceEl = document.getElementById('savingsBalanceDisplay');
-    const historyEl = document.getElementById('savingsHistoryList');
-
-    if (balanceEl) {
-        balanceEl.textContent = formatCurrency(appData.savings.balance);
-    }
-
-    if (historyEl) {
-        const transfers = [...appData.savings.transfers].reverse().slice(0, 10);
-
-        if (transfers.length === 0) {
-            historyEl.innerHTML = `<p class="empty-state">${t('no_savings_history')}</p>`;
-        } else {
-            historyEl.innerHTML = transfers.map(trans => `
-                <div class="transaction-item">
-                    <div class="transaction-info">
-                        <div class="transaction-icon">${trans.type === 'deposit' ? '📥' : '📤'}</div>
-                        <div class="transaction-details">
-                            <h4>${trans.type === 'deposit' ? t('transfer') : t('withdrawal')}</h4>
-                            <span>${new Date(trans.date).toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US')}</span>
-                        </div>
-                    </div>
-                    <span class="transaction-amount ${trans.type === 'deposit' ? 'income' : 'expense'}">${trans.type === 'deposit' ? '+' : '-'}${formatCurrency(trans.amount)}</span>
-                </div>
-            `).join('');
-        }
-    }
-}
-
-// ==================== DEBTS PANEL ====================
-function initDebtsPanel() {
-    const addDebtBtn = document.getElementById('addDebtBtn');
-    const debtModal = document.getElementById('debtModal');
-    const cancelDebtBtn = document.getElementById('cancelDebt');
-    const confirmDebtBtn = document.getElementById('confirmDebt');
-
-    if (addDebtBtn) {
-        addDebtBtn.addEventListener('click', () => {
-            debtModal.classList.remove('hidden');
-        });
-    }
-
-    if (cancelDebtBtn) {
-        cancelDebtBtn.addEventListener('click', () => {
-            debtModal.classList.add('hidden');
-        });
-    }
-
-    if (confirmDebtBtn) {
-        confirmDebtBtn.addEventListener('click', () => {
-            const name = document.getElementById('debtName').value;
-            const principal = parseFloat(document.getElementById('debtPrincipal').value) || 0;
-            const rate = parseFloat(document.getElementById('debtRate').value) || 0;
-
-            if (!name || principal <= 0) return;
-
-            appData.debts.push({
-                id: Date.now(),
-                name: name,
-                principal: principal,
-                interestRate: rate,
-                startDate: new Date().toISOString(),
-                payments: []
-            });
-
-            saveData();
-            updateDebtsPanel();
-            debtModal.classList.add('hidden');
-
-            document.getElementById('debtName').value = '';
-            document.getElementById('debtPrincipal').value = '';
-            document.getElementById('debtRate').value = '';
-        });
-    }
-
-    if (debtModal) {
-        debtModal.addEventListener('click', (e) => {
-            if (e.target === debtModal) {
-                debtModal.classList.add('hidden');
-            }
-        });
-    }
-}
-
-function updateDebtsPanel() {
-    const totalEl = document.getElementById('totalDebtDisplay');
-    const listEl = document.getElementById('debtsList');
-
-    const totalDebt = getTotalDebt();
-
-    if (totalEl) {
-        totalEl.textContent = formatCurrency(totalDebt);
-    }
-
-    if (listEl) {
-        if (appData.debts.length === 0) {
-            listEl.innerHTML = `<p class="empty-state">${t('no_debts')}</p>`;
-        } else {
-            listEl.innerHTML = appData.debts.map(debt => {
-                const calc = calculateDebtWithInterest(debt);
-                return `
-                    <div class="debt-card" data-id="${debt.id}">
-                        <div class="debt-header">
-                            <h4>${debt.name}</h4>
-                            ${calc.isPaidOff ? `<span class="paid-off-badge">${t('paid_off')}</span>` : ''}
-                        </div>
-                        <div class="debt-details">
-                            <div class="debt-row">
-                                <span>${t('principal')}</span>
-                                <span>${formatCurrency(debt.principal)}</span>
-                            </div>
-                            <div class="debt-row">
-                                <span>${t('accrued_interest')}</span>
-                                <span class="negative">+${formatCurrency(calc.accruedInterest)}</span>
-                            </div>
-                            <div class="debt-row">
-                                <span>${t('remaining')}</span>
-                                <span class="negative">${formatCurrency(calc.totalOwed)}</span>
-                            </div>
-                        </div>
-                        ${!calc.isPaidOff ? `
-                            <div class="debt-actions">
-                                <input type="number" class="payment-input" placeholder="${t('payment_amount')}" min="0" step="0.01">
-                                <button class="make-payment-btn">${t('make_payment')}</button>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            }).join('');
-
-            // Add payment handlers
-            listEl.querySelectorAll('.debt-card').forEach(card => {
-                const debtId = parseInt(card.dataset.id);
-                const paymentBtn = card.querySelector('.make-payment-btn');
-                const paymentInput = card.querySelector('.payment-input');
-
-                if (paymentBtn && paymentInput) {
-                    paymentBtn.addEventListener('click', () => {
-                        const amount = parseFloat(paymentInput.value) || 0;
-                        if (amount <= 0) return;
-
-                        const debt = appData.debts.find(d => d.id === debtId);
-                        if (debt) {
-                            debt.payments.push({
-                                date: new Date().toISOString(),
-                                amount: amount
-                            });
-                            saveData();
-                            updateDebtsPanel();
-                        }
-                    });
-                }
-            });
-        }
-    }
 }
 
 // ==================== CHART ====================
@@ -1481,6 +1033,7 @@ function initChart() {
         }
     });
 
+    // Chart controls
     document.getElementById('chartPeriod').addEventListener('change', updateChart);
     document.getElementById('showIncome').addEventListener('change', updateChart);
     document.getElementById('showExpenses').addEventListener('change', updateChart);
@@ -1527,11 +1080,13 @@ function generateChartData(period) {
     const months = translations[currentLang].months;
 
     if (period === 'day') {
+        // Hourly for today
         for (let h = 0; h <= now.getHours(); h++) {
             labels.push(`${h}:00`);
             incomeData.push(incomePerSecond * 3600 * h);
             taxData.push(taxPerSecond * 3600 * h);
 
+            // Sum expenses for this hour
             const hourExpenses = appData.transactions
                 .filter(trans => {
                     const d = new Date(trans.date);
@@ -1543,6 +1098,7 @@ function generateChartData(period) {
             expenseData.push(hourExpenses);
         }
     } else if (period === 'week') {
+        // Daily for this week
         const startOfWeek = new Date(now);
         startOfWeek.setDate(now.getDate() - now.getDay());
         startOfWeek.setHours(0, 0, 0, 0);
@@ -1564,6 +1120,7 @@ function generateChartData(period) {
             expenseData.push(dayExpenses);
         }
     } else if (period === 'month') {
+        // Weekly for this month
         const weeksInMonth = Math.ceil(now.getDate() / 7);
         for (let w = 1; w <= weeksInMonth; w++) {
             labels.push(`${t('week_label')} ${w}`);
@@ -1582,6 +1139,7 @@ function generateChartData(period) {
             expenseData.push(weekExpenses);
         }
     } else if (period === 'year') {
+        // Monthly for this year
         for (let m = 0; m <= now.getMonth(); m++) {
             labels.push(months[m]);
             incomeData.push(incomePerSecond * 86400 * 30 * (m + 1));
@@ -1608,25 +1166,30 @@ function updateBudgetSuggestions() {
     const savingsRate = appData.savingsGoal / 100;
     const spendingRate = 1 - savingsRate;
 
+    // Update income display
     document.getElementById('budgetIncome').textContent = formatCurrency(netMonthly);
 
+    // Daily
     const dailySpend = (netMonthly * spendingRate) / 30;
     const dailySave = (netMonthly * savingsRate) / 30;
     document.getElementById('dailySpend').textContent = formatCurrency(dailySpend);
     document.getElementById('dailySave').textContent = formatCurrency(dailySave);
 
+    // Weekly
     const weeklySpend = (netMonthly * spendingRate) / 4;
     const weeklySave = (netMonthly * savingsRate) / 4;
     document.getElementById('weeklySpend').textContent = formatCurrency(weeklySpend);
     document.getElementById('weeklySave').textContent = formatCurrency(weeklySave);
 
+    // Monthly
     const monthlySpend = netMonthly * spendingRate;
     const monthlySave = netMonthly * savingsRate;
-    const emergencyFund = netMonthly * 6;
+    const emergencyFund = netMonthly * 6; // 6 months emergency fund
     document.getElementById('monthlySpend').textContent = formatCurrency(monthlySpend);
     document.getElementById('monthlySave').textContent = formatCurrency(monthlySave);
     document.getElementById('emergencyFund').textContent = formatCurrency(emergencyFund);
 
+    // 50/30/20 Rule
     document.getElementById('needsAmount').textContent = formatCurrency(netMonthly * 0.5);
     document.getElementById('wantsAmount').textContent = formatCurrency(netMonthly * 0.3);
     document.getElementById('savingsAmount').textContent = formatCurrency(netMonthly * 0.2);
@@ -1640,6 +1203,7 @@ function updateBudgetProgress() {
     const spendingBudget = netMonthly * (1 - savingsRate);
     const savingsBudget = netMonthly * savingsRate;
 
+    // Calculate this month's actual spending
     const now = new Date();
     const thisMonthExpenses = appData.transactions
         .filter(trans => {
@@ -1650,11 +1214,13 @@ function updateBudgetProgress() {
         })
         .reduce((sum, trans) => sum + trans.amount, 0);
 
+    // Calculate this month's earnings saved (simplified)
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const daysElapsed = (now - startOfMonth) / (1000 * 60 * 60 * 24);
     const earnedThisMonth = (getNetAnnualIncome() / 365) * daysElapsed;
     const savedThisMonth = earnedThisMonth - thisMonthExpenses;
 
+    // Update progress bars
     const spendPercent = Math.min(100, (thisMonthExpenses / spendingBudget) * 100);
     const savePercent = Math.min(100, (savedThisMonth / savingsBudget) * 100);
 
@@ -1677,6 +1243,7 @@ function updateSettingsForm() {
     document.getElementById('savingsGoalValue').textContent = appData.savingsGoal + '%';
     document.getElementById('languageSelect').value = currentLang;
 
+    // Show/hide US tax fields based on country
     const settingsUsTaxFields = document.getElementById('settingsUsTaxFields');
     if (appData.country === 'kr') {
         settingsUsTaxFields.classList.add('hidden');
@@ -1684,34 +1251,9 @@ function updateSettingsForm() {
         settingsUsTaxFields.classList.remove('hidden');
     }
 
+    // Update currency symbol
     const symbol = appData.currency === 'KRW' ? '₩' : '$';
     document.getElementById('settingsCurrencySymbol').textContent = symbol;
-
-    // Update salary history display
-    updateSalaryHistoryDisplay();
-}
-
-function updateSalaryHistoryDisplay() {
-    const historyEl = document.getElementById('salaryHistoryList');
-    if (!historyEl) return;
-
-    if (appData.salaryHistory.length === 0) {
-        historyEl.innerHTML = '<p class="empty-state">No salary history</p>';
-        return;
-    }
-
-    historyEl.innerHTML = appData.salaryHistory.map((entry, index) => {
-        const startDate = new Date(entry.startDate).toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US');
-        const endDate = entry.endDate ? new Date(entry.endDate).toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US') : t('current_salary');
-        const annualSalary = entry.salaryPeriod === 'monthly' ? entry.salary * 12 : entry.salary;
-
-        return `
-            <div class="salary-history-item">
-                <span class="salary-dates">${startDate} - ${endDate}</span>
-                <span class="salary-amount">${formatCurrency(annualSalary)}/yr</span>
-            </div>
-        `;
-    }).join('');
 }
 
 function initSettings() {
@@ -1720,6 +1262,7 @@ function initSettings() {
         document.getElementById('savingsGoalValue').textContent = savingsGoalSlider.value + '%';
     });
 
+    // Country select change in settings
     document.getElementById('settingsCountry').addEventListener('change', (e) => {
         const country = e.target.value;
         const settingsUsTaxFields = document.getElementById('settingsUsTaxFields');
@@ -1733,58 +1276,17 @@ function initSettings() {
         document.getElementById('settingsCurrencySymbol').textContent = symbol;
     });
 
+    // Language select change
     document.getElementById('languageSelect').addEventListener('change', (e) => {
         setLanguage(e.target.value);
     });
-
-    // Add salary change handler
-    const addSalaryChangeBtn = document.getElementById('addSalaryChange');
-    if (addSalaryChangeBtn) {
-        addSalaryChangeBtn.addEventListener('click', () => {
-            const newSalary = parseFloat(document.getElementById('newSalaryAmount').value) || 0;
-            const effectiveDate = document.getElementById('salaryEffectiveDate').value;
-
-            if (newSalary <= 0 || !effectiveDate) {
-                alert('Please enter a valid salary and date');
-                return;
-            }
-
-            // End the current salary period
-            if (appData.salaryHistory.length > 0) {
-                const lastEntry = appData.salaryHistory[appData.salaryHistory.length - 1];
-                lastEntry.endDate = new Date(effectiveDate).toISOString();
-            }
-
-            // Add new salary entry
-            appData.salaryHistory.push({
-                startDate: new Date(effectiveDate).toISOString(),
-                endDate: null,
-                salary: newSalary,
-                salaryPeriod: 'annual'
-            });
-
-            saveData();
-            updateSettingsForm();
-            startCounter();
-            updateBudgetSuggestions();
-
-            document.getElementById('newSalaryAmount').value = '';
-            document.getElementById('salaryEffectiveDate').value = '';
-        });
-    }
 
     document.getElementById('saveSettings').addEventListener('click', () => {
         const country = document.getElementById('settingsCountry').value;
         appData.country = country;
         appData.currency = country === 'kr' ? 'KRW' : 'USD';
-
-        // Update current salary
-        const newSalary = parseFloat(document.getElementById('settingsSalary').value);
-        if (newSalary > 0 && appData.salaryHistory.length > 0) {
-            const currentEntry = appData.salaryHistory[appData.salaryHistory.length - 1];
-            currentEntry.salary = newSalary;
-            currentEntry.salaryPeriod = 'annual';
-        }
+        appData.salary = parseFloat(document.getElementById('settingsSalary').value) || appData.salary;
+        appData.salaryPeriod = 'annual';
 
         if (country === 'us') {
             appData.filingStatus = document.getElementById('settingsFilingStatus').value;
@@ -1807,7 +1309,7 @@ function initSettings() {
 
     document.getElementById('resetData').addEventListener('click', () => {
         if (confirm(t('reset_confirm'))) {
-            localStorage.removeItem('cashflow_data_v2');
+            localStorage.removeItem('cashflow_data');
             location.reload();
         }
     });
@@ -1837,4 +1339,5 @@ function init() {
     }
 }
 
+// Start the app
 document.addEventListener('DOMContentLoaded', init);
