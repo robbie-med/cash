@@ -4,6 +4,7 @@ A mobile-first PWA that gamifies your income by showing your balance grow in rea
 
 <img width="492" height="491" alt="Screenshot 2026-01-30 053955" src="https://github.com/user-attachments/assets/a7cdccbc-a234-4535-ac4b-8143cbcd2eae" />
 
+<img width="687" height="846" alt="cash" src="https://github.com/user-attachments/assets/15e8a6ae-2028-4461-9dbe-224910978139" />
 
 ## Features
 
